@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Franchise {
+  id        Int       @id @default(autoincrement())
+  name      String
+  countries Country[]
+}
+
+model Country {
+  id          Int        @id @default(autoincrement())
+  name        String
+  franchiseId Int
+  franchise   Franchise  @relation(fields: [franchiseId], references: [id])
+  sites       Site[]
+}
+
+model Site {
+  id        Int       @id @default(autoincrement())
+  name      String
+  address   String?
+  countryId Int
+  country   Country   @relation(fields: [countryId], references: [id])
+  jobs      Job[]
+}
+
+model Job {
+  id        Int      @id @default(autoincrement())
+  title     String
+  date      DateTime @default(now())
+  siteId    Int
+  site      Site     @relation(fields: [siteId], references: [id])
+  notes     String?
+}
