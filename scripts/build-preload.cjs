@@ -2,11 +2,11 @@ const esbuild = require('esbuild')
 
 async function build() {
   const ctx = await esbuild.context({
-    entryPoints: ['src/preload/db.ts'],
+    entryPoints: ['src/preload/preload.ts'],   // ← ICI
     outfile: 'dist/preload.js',
     bundle: true,
     platform: 'node',
-    format: 'esm',          // ← OBLIGATOIRE
+    format: 'esm',
     external: ['electron'],
     sourcemap: true,
     minify: false,

@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 
 export default defineConfig({
+  root: '.', // ← indispensable pour Electron
   plugins: [react()],
   resolve: {
     alias: {
@@ -12,5 +13,9 @@ export default defineConfig({
   server: {
     port: 5173,
     strictPort: true,
+  },
+  build: {
+    outDir: 'dist',
+    emptyOutDir: false,
   },
 })

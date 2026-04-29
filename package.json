@@ -4,19 +4,18 @@
   "description": "",
   "main": "src/main/main.js",
   "scripts": {
-    "dev": "npm-run-all -p watch:main dev:preload dev:renderer dev:electron",
+    "dev": "npm-run-all -p watch:main watch:ipc dev:preload dev:renderer dev:electron",
     "watch:main": "node scripts/build-main.cjs --watch",
+    "watch:ipc": "node scripts/build-ipc.cjs --watch",
     "dev:preload": "node scripts/build-preload.cjs --watch",
     "dev:renderer": "vite",
-    "dev:electron": "wait-on http://localhost:5173 && cross-env VITE_DEV_SERVER_URL=http://localhost:5173 electron dist/main.js",
-    "build": "npm run build:renderer && npm run build:main && npm run build:preload",
+    "dev:electron": "wait-on tcp:5173 && cross-env VITE_DEV_SERVER_URL=http://localhost:5173 electron dist/main.js",
+    "build": "npm run build:renderer && npm run build:main && npm run build:preload && npm run build:ipc",
     "build:renderer": "vite build",
     "build:main": "node scripts/build-main.cjs",
-    "build:preload": "node scripts/build-preload.cjs"
+    "build:preload": "node scripts/build-preload.cjs",
+    "build:ipc": "node scripts/build-ipc.cjs"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "type": "module",
   "devDependencies": {
     "@types/node": "^25.6.0",
