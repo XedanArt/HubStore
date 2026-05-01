@@ -1,36 +1,44 @@
-import { app, BrowserWindow } from 'electron'
-import path from 'path'
-import { fileURLToPath } from 'url'
-import { dirname } from 'path'
-import './ipc/dbhandlers.js'
+import { app, BrowserWindow } from "electron";
+import path from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+// Résolution correcte du chemin IPC en dev / prod
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// En dev → src/main/ipc/dbhandlers.js
+// En prod → dist/ipc/dbhandlers.js
+const dbHandlersPath = app.isPackaged
+  ? path.join(__dirname, "../ipc/dbhandlers.js")
+  : path.join(__dirname, "ipc/dbhandlers.js");
+
+// Import dynamique compatible ESM (convertit en file://)
+await import(pathToFileURL(dbHandlersPath).href);
 
 function createWindow() {
   const win = new BrowserWindow({
     width: 1200,
     height: 800,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, "preload.js"),
     },
-  })
+  });
 
   if (process.env.VITE_DEV_SERVER_URL) {
-    win.loadURL(process.env.VITE_DEV_SERVER_URL)
+    win.loadURL(process.env.VITE_DEV_SERVER_URL);
   } else {
-    win.loadFile(path.join(__dirname, '../index.html'))
+    win.loadFile(path.join(__dirname, "../renderer/index.html"));
   }
 }
 
 app.whenReady().then(() => {
-  createWindow()
+  createWindow();
 
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
-  })
-})
+  app.on("activate", () => {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  });
+});
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit()
-})
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") app.quit();
+});

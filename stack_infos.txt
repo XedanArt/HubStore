@@ -1,0 +1,102 @@
+//////////// STACK ///////////                                                                                          
+ELECTRON : 
+Electron is a framework for building cross-platform desktop applications using web technologies like JavaScript, HTML, and CSS. It allows developers to create applications that can run on Windows, macOS, and Linux using a single codebase. Electron combines the Chromium rendering engine and the Node.js runtime, enabling developers to build powerful desktop applications with access to native system APIs. Some popular applications built with Electron include Visual Studio Code, Slack, and Discord.
+
+VITE :
+Vite is a modern build tool and development server for web applications. It is designed to provide a fast and efficient development experience by leveraging native ES modules in the browser. Vite uses a dev server that serves source files directly, allowing for instant hot module replacement (HMR) and fast startup times. It also supports features like code splitting, tree shaking, and optimized production builds. Vite is often used in combination with frameworks like Vue.js, React, and Svelte to create modern web applications.
+
+REACT :
+React is a popular JavaScript library for building user interfaces, particularly single-page applications. It was developed by Facebook and is widely used for creating interactive and dynamic web applications. React allows developers to build reusable UI components, manage application state efficiently, and create a virtual DOM for optimal rendering performance. It follows a component-based architecture, making it easier to maintain and scale applications. React can be used in combination with other libraries and frameworks, such as Redux for state management or React Router for routing, to create complex web applications.
+
+TAILWINDCSS V4 :
+Tailwind CSS is a utility-first CSS framework that provides a set of pre-defined classes for building custom designs directly in your HTML. Tailwind CSS v4 introduces new features and improvements, such as enhanced support for dark mode, improved performance, and additional utility classes. It allows developers to rapidly build responsive and customizable user interfaces without writing custom CSS. With Tailwind CSS, you can easily create complex layouts and styles by combining utility classes, making it a popular choice for modern web development.
+
+ZUSTAND :
+Zustand is a small, fast, and scalable state management library for React applications. It provides a simple and intuitive API for managing application state without the need for complex boilerplate code. Zustand uses a hook-based approach, allowing developers to create and manage state in a more straightforward way. It supports features like middleware, selectors, and persistence, making it a powerful tool for handling state in React applications. Zustand is often praised for its simplicity and performance, making it a popular choice among React developers.
+
+PRISMA + SQLite :
+Prisma is an open-source database toolkit that provides a type-safe and intuitive way to interact with databases. It allows developers to define their database schema using a declarative syntax and generates a powerful query builder for working with the database. Prisma supports various databases, including SQLite, which is a lightweight and file-based relational database. With Prisma and SQLite, developers can easily manage their application's data, perform CRUD operations, and ensure data integrity while benefiting from Prisma's features like migrations, type safety, and query optimization.
+
+NODE.JS :
+Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. It allows developers to run JavaScript code on the server side, enabling the creation of scalable and high-performance web applications. Node.js uses an event-driven, non-blocking I/O model, making it efficient for handling concurrent requests. It has a vast ecosystem of libraries and frameworks, such as Express.js for building web servers and Socket.io for real-time communication. Node.js is widely used for developing APIs, microservices, and full-stack applications, making it a popular choice among developers for server-side programming.
+
+
+//////////// ARCHITECTURE DU PROJET ///////////   
+Hubstore/
+  dist/
+  node_modules/
+  prisma/
+  scripts/
+  src/
+    main/
+    preload/
+    renderer/
+      public/
+      src/
+        assets/
+        components/
+        layout/
+        pages/
+        hooks/
+        store/
+        App.tsx
+        main.tsx
+        index.css
+  package.json
+  vite.config.ts
+  tailwind.config.js
+  postcss.config.js
+  tsconfig.json
+
+Hubstore/ : This is the root directory of the project, containing all the files and subdirectories.
+dist/ : This directory contains the compiled and bundled files that are generated after building the application. It is typically used for production deployment.
+prisma/ : This directory contains the Prisma schema and migration files for managing the database schema and interactions.
+scripts/ : This directory may contain various scripts for tasks such as database seeding, data migration, or other utility scripts.
+src/ : This is the main source code directory for the application.
+    main/ : This directory contains the main process code for the Electron application, responsible for managing the application's lifecycle and native functionalities.
+    preload/ : This directory contains the preload scripts that run in the renderer process before the web page is loaded, allowing for secure communication between the main and renderer processes.
+    renderer/ : This directory contains the code for the renderer process, which is responsible for rendering the user interface and handling user interactions.
+        public/ : This directory may contain static assets such as images, fonts, or other files that are served directly to the client.
+        src/ : This directory contains the source code for the renderer process, including components, layout, pages, hooks, store, and other related files.
+            assets/ : This directory may contain additional assets specific to the renderer process.
+            components/ : This directory contains reusable UI components that can be used across different pages or layouts.
+            layout/ : This directory may contain layout components that define the overall structure of the application.
+            pages/ : This directory contains individual page components that represent different views or routes in the application.
+            hooks/ : This directory may contain custom React hooks for managing state or side effects in the application.
+            store/ : This directory may contain state management logic using Zustand or other libraries.
+            App.tsx : The main entry point for the React application, where the root component is defined and rendered.
+            main.tsx : The entry point for the renderer process, where the React application is initialized and rendered to the DOM.
+            index.css : The main CSS file for styling the application.
+
+//////////// FICHIERS DE CONFIGURATION ///////////   
+package.json : The configuration file for the Node.js project, where you can specify dependencies, scripts, and other metadata for the application.
+vite.config.ts : The configuration file for Vite, where you can specify build options, plugins, and other settings for the development server and production build.
+tailwind.config.js : The configuration file for Tailwind CSS, where you can customize the default theme, add plugins, and configure other settings for the utility classes.
+postcss.config.js : The configuration file for PostCSS, where you can specify plugins and options for processing CSS files.
+tsconfig.json : The TypeScript configuration file, where you can specify compiler options, include/exclude files, and configure other settings for TypeScript compilation.
+
+//////////// COMMANDES VERSION ///////////  
+Electron : npx electron --version ---> v41.3.0
+Vite : npm list vite ---> vite@8.0.10
+React : npm list react react-dom ---> react@19.2.5
+Lucide-react : 11.12.1
+TailwindCSS : npm list tailwindcss ---> tailwindcss@4.2.4
+Zustand : npm list zustand ---> 11.12.1
+Prisma : npx prisma -v ---> 5.14.0
+TypeScript : npx tsc -v ---> Version 6.0.3
+Node.js : node -v ---> v24.15.0
+npm : npm -v ---> 11.12.1
+all : npm list --depth=0 
+
+//////////// PALETTE ///////////  
+/// Palette principale :
+bg : #0f1115
+panel : #1a1d23
+accent : #3b82f6
+accent-light : #60a5fa
+text-primary : #e5e7eb
+text-secondary : #9ca3af
+
+/// Radius :
+rounded-md : 6px
+rounded-lg : 10px

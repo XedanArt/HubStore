@@ -1,5 +1,5 @@
 import { ipcMain } from 'electron'
-import { prisma } from '../database'
+import { prisma } from '../database.js'
 
 ipcMain.handle('db:getFranchises', async () => {
   return prisma.franchise.findMany({
