@@ -10,9 +10,6 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"),
     },
   },
-  css: {
-    postcss: path.resolve(__dirname, "postcss.config.cjs"),
-  },
   server: {
     port: 5173,
     strictPort: true,
