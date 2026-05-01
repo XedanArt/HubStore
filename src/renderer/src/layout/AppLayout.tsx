@@ -4,10 +4,9 @@ import MainView from "../components/MainView"
 
 export default function AppLayout() {
   return (
-    <div className="flex h-screen bg-bg text-text-primary">
+    <div>
       <Sidebar />
-
-      <div className="flex flex-col flex-1">
+      <div>
         <Header />
         <MainView />
       </div>

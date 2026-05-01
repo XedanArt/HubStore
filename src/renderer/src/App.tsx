@@ -3,9 +3,13 @@ import AppLayout from "./layout/AppLayout"
 export default function App() {
   return (
     <>
-      <div className="test-wand p-10 text-white text-3xl">
-  Test CSS brut
+    <div className="p-10 bg-blue-500 text-white">
+  Tailwind OK
 </div>
+
+
+
+
 
 
 
