@@ -17,6 +17,13 @@ export const useFranchiseStore = create(set => ({
   selectedFranchise: null,
   selectedCity: null,
 
-  selectFranchise: (name) => set({ selectedFranchise: name, selectedCity: null }),
-  selectCity: (city) => set({ selectedCity: city }),
+  selectFranchise: (name) =>
+    set({ selectedFranchise: name, selectedCity: null }),
+
+  selectCity: (city) =>
+    set({ selectedCity: city }),
+
+  // ⬅️ La fonction qui manquait absolument
+  resetSelection: () =>
+    set({ selectedFranchise: null, selectedCity: null })
 }))

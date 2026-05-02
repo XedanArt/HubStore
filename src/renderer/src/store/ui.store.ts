@@ -1,11 +1,12 @@
 import { create } from "zustand"
 
 interface UIState {
-  currentPage: string
-  setPage: (page: string) => void
+  activeView: "home" | "create" | "manage"
+  setPage: (view: UIState["activeView"]) => void
 }
 
 export const useUIStore = create<UIState>(set => ({
-  currentPage: "dashboard",
-  setPage: (page) => set({ currentPage: page }),
+  activeView: "home",
+
+  setPage: (view) => set({ activeView: view }),
 }))
