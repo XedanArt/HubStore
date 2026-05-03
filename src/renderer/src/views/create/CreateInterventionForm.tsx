@@ -1,0 +1,107 @@
+import { useState } from "react"
+import { useFranchiseStore } from "../../store/franchise.store"
+
+function CreateInterventionForm({ onBack }) {
+  const { franchises } = useFranchiseStore()
+
+  const [franchiseId, setFranchiseId] = useState("")
+  const [city, setCity] = useState("")
+  const [object, setObject] = useState("")
+  const [description, setDescription] = useState("")
+  const [dateStart, setDateStart] = useState("")
+  const [dateEnd, setDateEnd] = useState("")
+
+  const selectedFranchise = franchises.find(f => f.id === Number(franchiseId))
+
+  const handleSubmit = () => {
+    if (!franchiseId) return alert("La franchise est obligatoire.")
+    if (!city) return alert("La ville est obligatoire.")
+    if (!object.trim()) return alert("L'objet est obligatoire.")
+    if (!dateStart) return alert("La date d'intervention est obligatoire.")
+
+    console.log("Créer intervention :", {
+      franchiseId,
+      city,
+      object,
+      description,
+      dateStart,
+      dateEnd,
+      status: dateEnd ? "resolved" : "pending"
+    })
+  }
+
+  return (
+    <div className="flex flex-col justify-between max-w-md h-full">
+      
+      <div className="space-y-4">
+        <h2 className="text-xl font-semibold">Créer une intervention</h2>
+
+        <select
+          className="input"
+          value={franchiseId}
+          onChange={e => setFranchiseId(e.target.value)}
+        >
+          <option value="">Sélectionner une franchise *</option>
+          {franchises.map(f => (
+            <option key={f.id} value={f.id}>{f.name}</option>
+          ))}
+        </select>
+
+        <select
+          className="input"
+          value={city}
+          onChange={e => setCity(e.target.value)}
+          disabled={!selectedFranchise}
+        >
+          <option value="">Sélectionner une ville *</option>
+          {selectedFranchise?.cities.map(c => (
+            <option key={c} value={c}>{c}</option>
+          ))}
+        </select>
+
+        <input
+          className="input"
+          placeholder="Objet *"
+          value={object}
+          onChange={e => setObject(e.target.value)}
+        />
+
+        <textarea
+          className="input"
+          placeholder="Description (optionnel)"
+          value={description}
+          onChange={e => setDescription(e.target.value)}
+        />
+
+        <input
+          type="date"
+          className="input"
+          value={dateStart}
+          onChange={e => setDateStart(e.target.value)}
+        />
+
+        <input
+          type="date"
+          className="input"
+          value={dateEnd}
+          onChange={e => setDateEnd(e.target.value)}
+        />
+      </div>
+
+      <div className="flex justify-between mt-6">
+        <button
+          onClick={onBack}
+          className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
+        >
+          ← Retour
+        </button>
+
+        <button className="btn-primary" onClick={handleSubmit}>
+          Créer
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export default CreateInterventionForm

@@ -1,0 +1,19 @@
+ElectronMain <.. PreloadBridge : IPC
+PreloadBridge <.. FranchiseService : appelle
+FranchiseService <.. FranchiseStore : utilise
+UIStore <.. Sidebar : lit + setPage()
+UIStore <.. MainView : lit activeView
+FranchiseStore <.. Sidebar : lit + selectFranchise()
+FranchiseStore <.. MainView : lit selectedFranchise / selectedCity
+
+AppLayout *-- Header
+AppLayout *-- Sidebar
+AppLayout *-- MainView
+
+MainView o-- HomePage
+MainView o-- CreateEntryPage
+MainView o-- Dashboard
+MainView o-- Franchises
+MainView o-- Sites
+MainView o-- Interventions
+MainView o-- Settings

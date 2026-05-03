@@ -1,1 +1,37 @@
 @import "tailwindcss";
+
+@import "tailwindcss";
+
+/* --- Tes classes globales réutilisables --- */
+
+.input {
+  @apply w-full px-3 py-2 rounded-lg
+         bg-[rgba(37,37,65,0.6)]
+         border border-[rgba(255,255,255,0.1)]
+         text-[#f5f5f7] placeholder-[#a8a8b8]
+         focus:outline-none focus:border-[#8b5cf6]
+         focus:ring-1 focus:ring-[#8b5cf6]/50;
+}
+
+.btn-primary {
+  @apply px-4 py-2 rounded-lg
+         bg-[#8b5cf6] text-white
+         hover:bg-[#7c4ae0]
+         transition;
+}
+
+.btn-secondary {
+  @apply px-4 py-2 rounded-lg
+         bg-[rgba(37,37,65,0.6)]
+         border border-[rgba(255,255,255,0.1)]
+         text-[#f5f5f7]
+         hover:bg-[rgba(45,45,74,0.6)]
+         transition;
+}
+
+.btn-ghost {
+  @apply px-2 py-1 rounded
+         text-[#f5f5f7]
+         hover:text-[#8b5cf6]
+         transition;
+}

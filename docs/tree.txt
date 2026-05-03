@@ -1,0 +1,68 @@
+.
+└── HubStore/
+    ├── dist
+    ├── docs
+    ├── node_modules
+    ├── prisma
+    ├── scripts/
+    │   ├── build-ipc.mjs
+    │   ├── build-main.mjs
+    │   ├── build-preload.mjs
+    │   └── build-renderer.mjs
+    ├── src/
+    │   ├── main/
+    │   │   ├── ipc/
+    │   │   │   └── dbhandlers.ts
+    │   │   ├── database.ts
+    │   │   └── index.ts
+    │   ├── preload/
+    │   │   └── preload.ts
+    │   ├── renderer/
+    │   │   ├── public/
+    │   │   ├── src/
+    │   │   │   ├── assets/
+    │   │   │   ├── components/
+    │   │   │   ├── config/
+    │   │   │   ├── hooks/
+    │   │   │   ├── layout/
+    │   │   │   │   ├── AppLayout.tsx
+    │   │   │   │   ├── Header.tsx
+    │   │   │   │   ├── MainView.tsx
+    │   │   │   │   └── Sidebar.tsx
+    │   │   │   ├── pages/
+    │   │   │   │   ├── Dashboard.tsx
+    │   │   │   │   ├── Franchises.tsx
+    │   │   │   │   ├── Interventions.tsx
+    │   │   │   │   ├── Settings.tsx
+    │   │   │   │   └── Sites.tsx
+    │   │   │   ├── services/
+    │   │   │   ├── store/
+    │   │   │   │   ├── franchise.store.ts
+    │   │   │   │   └── ui.store.ts
+    │   │   │   ├── types/
+    │   │   │   │   ├── database.ts
+    │   │   │   │   ├── index.ts
+    │   │   │   │   └── ipc.ts
+    │   │   │   ├── utils/
+    │   │   │   ├── views/
+    │   │   │   │   ├── create/
+    │   │   │   │   │   ├── CreateCard.tsx
+    │   │   │   │   │   ├── CreateCityForm.tsx
+    │   │   │   │   │   ├── CreateEntryPage.tsx
+    │   │   │   │   │   ├── CreateFranchiseForm.tsx
+    │   │   │   │   │   └── CreateInterventionForm.tsx
+    │   │   │   │   └── home/
+    │   │   │   │       └── HomePage.tsx
+    │   │   │   ├── App.tsx
+    │   │   │   └── main.tsx
+    │   │   ├── .gitignore
+    │   │   ├── index.css
+    │   │   ├── index.html
+    │   │   ├── postcss.config.cjs
+    │   │   ├── tailwind.cjs
+    │   │   └── vite.config.ts
+    │   └── shared
+    ├── .gitignore
+    ├── package-lock.json
+    ├── package.json
+    └── tsconfig.json
