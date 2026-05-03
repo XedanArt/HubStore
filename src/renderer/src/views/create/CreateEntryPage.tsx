@@ -31,7 +31,6 @@ function CreateEntryPage() {
         shadow-[0_0_20px_rgba(0,0,0,0.3)]
       "
     >
-      <h1 className="text-2xl font-semibold mb-4">Créer une entrée</h1>
 
       {!selectedForm && (
         <>

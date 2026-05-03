@@ -1,1 +1,15 @@
-Ici, les informations sur les différentes techno qui constitue la stack.
+Ici, les informations sur les différentes techno qui constituent la stack.
+Informations sur les différents fichiers de configuration du projet.
+Informations sur les différents dossiers et leur utilité.
+
+Electron : npx electron --version ---> v41.3.0
+Vite : npm list vite ---> vite@8.0.10
+React : npm list react react-dom ---> react@19.2.5
+Lucide-react : 11.12.1
+TailwindCSS : npm list tailwindcss ---> tailwindcss@4.2.4
+Zustand : npm list zustand ---> 11.12.1
+Prisma : npx prisma -v ---> 5.14.0
+TypeScript : npx tsc -v ---> Version 6.0.3
+Node.js : node -v ---> v24.15.0
+npm : npm -v ---> 11.12.1
+all : npm list --depth=0 

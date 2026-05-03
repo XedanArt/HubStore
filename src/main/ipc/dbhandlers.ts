@@ -1,19 +1,37 @@
 import { ipcMain } from "electron"
 import { prisma } from "../database.js"
 
-// 🔹 Récupérer toutes les franchises avec leurs sites
-ipcMain.handle("db:getFranchises", async () => {
-  return prisma.franchise.findMany({
-    include: {
-      sites: true
+export function registerDbHandlers() {
+
+  // ========================
+  // FRANCHISES
+  // ========================
+
+  ipcMain.handle("franchise:getAll", async () => {
+    try {
+      const data = await prisma.franchise.findMany({
+        include: { sites: true }
+      })
+
+      return { success: true, data }
+    } catch (error) {
+      return { success: false, error: String(error) }
     }
   })
-})
 
-// 🔹 Créer une franchise
-ipcMain.handle("db:createFranchise", async (_event, data) => {
-  return prisma.franchise.create({ data })
-})
+  ipcMain.handle("franchise:create", async (_event, payload: { name: string }) => {
+    try {
+      const data = await prisma.franchise.create({
+        data: payload
+      })
+
+      return { success: true, data }
+    } catch (error) {
+      return { success: false, error: String(error) }
+    }
+  })
+
+}
 
 // 🔹 Récupérer tous les sites
 ipcMain.handle("db:getSites", async () => {

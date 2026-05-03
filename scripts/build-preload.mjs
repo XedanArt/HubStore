@@ -5,7 +5,7 @@ const ctx = await esbuild.context({
   outfile: "dist/preload.js",
   bundle: true,         // ← preload peut être bundlé
   platform: "node",
-  format: "esm",
+  format: "cjs",
   external: ["electron"],
   sourcemap: true,
 });

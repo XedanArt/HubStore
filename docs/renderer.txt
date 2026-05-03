@@ -1,1 +1,1 @@
-Ici, explications des différents fichiers front.
+Ici, explications des différents dossier/fichiers renderer.

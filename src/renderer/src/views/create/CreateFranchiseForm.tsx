@@ -5,12 +5,11 @@ function CreateFranchiseForm({ onBack }) {
   const { createFranchise } = useFranchiseStore()
 
   const [name, setName] = useState("")
-  const [description, setDescription] = useState("")
 
   const handleSubmit = async () => {
     if (!name.trim()) return alert("Le nom est obligatoire.")
 
-    await createFranchise({ name, description })
+    await createFranchise({ name })
     onBack()
   }
 
@@ -24,13 +23,6 @@ function CreateFranchiseForm({ onBack }) {
           placeholder="Nom de la franchise *"
           value={name}
           onChange={e => setName(e.target.value)}
-        />
-
-        <textarea
-          className="input"
-          placeholder="Description (optionnel)"
-          value={description}
-          onChange={e => setDescription(e.target.value)}
         />
       </div>
 

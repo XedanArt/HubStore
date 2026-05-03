@@ -1,6 +1,22 @@
 export const FranchiseService = {
-  getAll: () => window.api.db.getFranchises(),
+  async getAll() {
+    const res = await window.api.db.getFranchises()
 
-  create: (data: { name: string }) =>
-    window.api.db.createFranchise(data)
+    if (!res.success) {
+      throw new Error(res.error || "Erreur lors du fetch des franchises")
+    }
+
+    return res.data
+  },
+
+  async create(data: { name: string }) {
+    const res = await window.api.db.createFranchise(data)
+
+    if (!res.success) {
+      throw new Error(res.error || "Erreur lors de la création")
+    }
+
+    return res.data
+  },
 }
+

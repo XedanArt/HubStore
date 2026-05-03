@@ -32,7 +32,7 @@ function CreateSiteForm({ onBack }) {
 
         <input
           className="input"
-          placeholder="Nom du site *"
+          placeholder="Nom du site : Paris 12 *"
           value={name}
           onChange={e => setName(e.target.value)}
         />
@@ -47,20 +47,6 @@ function CreateSiteForm({ onBack }) {
             <option key={f.id} value={f.id}>{f.name}</option>
           ))}
         </select>
-
-        <input
-          className="input"
-          placeholder="Numéro de téléphone (optionnel)"
-          value={phone}
-          onChange={e => setPhone(e.target.value)}
-        />
-
-        <textarea
-          className="input"
-          placeholder="Description (optionnel)"
-          value={description}
-          onChange={e => setDescription(e.target.value)}
-        />
       </div>
 
       <div className="flex justify-between mt-6">
