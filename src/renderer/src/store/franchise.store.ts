@@ -1,29 +1,17 @@
 import { create } from "zustand"
+import { FranchiseService } from "../services/franchise.service"
 
 export const useFranchiseStore = create(set => ({
-  franchises: [
-    {
-      id: 1,
-      name: "McDonald's",
-      cities: ["Paris", "Lyon", "Marseille"]
-    },
-    {
-      id: 2,
-      name: "Starbucks",
-      cities: ["Paris", "Nice"]
-    }
-  ],
+  franchises: [],
 
-  selectedFranchise: null,
-  selectedCity: null,
+  loadFranchises: async () => {
+    const data = await FranchiseService.getAll()
+    set({ franchises: data })
+  },
 
-  selectFranchise: (name) =>
-    set({ selectedFranchise: name, selectedCity: null }),
-
-  selectCity: (city) =>
-    set({ selectedCity: city }),
-
-  // ⬅️ La fonction qui manquait absolument
-  resetSelection: () =>
-    set({ selectedFranchise: null, selectedCity: null })
+  createFranchise: async (payload) => {
+    await FranchiseService.create(payload)
+    const data = await FranchiseService.getAll()
+    set({ franchises: data })
+  }
 }))

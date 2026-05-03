@@ -5,7 +5,7 @@ import CreateEntryPage from "../views/create/CreateEntryPage"
 import HomePage from "../views/home/HomePage"
 
 export default function MainView() {
-  const { selectedFranchise, selectedCity } = useFranchiseStore()
+  const { selectedFranchise, selectedSite } = useFranchiseStore()
   const activeView = useUIStore(s => s.activeView)
 
   return (
@@ -22,23 +22,23 @@ export default function MainView() {
           {/* Aucune franchise sélectionnée → vraie page d’accueil */}
           {!selectedFranchise && <HomePage />}
 
-          {/* Franchise sélectionnée mais pas de ville */}
-          {selectedFranchise && !selectedCity && (
+          {/* Franchise sélectionnée mais pas de site */}
+          {selectedFranchise && !selectedSite && (
             <div>
               <h1 className="text-2xl font-semibold mb-4">
                 Franchise : {selectedFranchise}
               </h1>
               <p className="text-[#a8a8b8]">
-                Sélectionnez une ville dans la sidebar.
+                Sélectionnez un site dans la sidebar.
               </p>
             </div>
           )}
 
-          {/* Ville sélectionnée */}
-          {selectedCity && (
+          {/* Site sélectionné */}
+          {selectedSite && (
             <div>
               <h1 className="text-2xl font-semibold mb-4">
-                {selectedCity} — {selectedFranchise}
+                {selectedSite} — {selectedFranchise}
               </h1>
 
               <div
@@ -67,7 +67,7 @@ export default function MainView() {
         <div>
           <h1 className="text-2xl font-semibold mb-4">Gérer les entrées</h1>
           <p className="text-[#a8a8b8]">
-            Gestion des franchises, villes et interventions.
+            Gestion des franchises, sites et interventions.
           </p>
         </div>
       )}

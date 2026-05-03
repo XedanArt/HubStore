@@ -1,30 +1,38 @@
 import { useState } from "react"
 import { useFranchiseStore } from "../../store/franchise.store"
+import { SiteService } from "../../services/site.service"
 
-function CreateCityForm({ onBack }) {
-  const { franchises } = useFranchiseStore()
+function CreateSiteForm({ onBack }) {
+  const { franchises, loadFranchises } = useFranchiseStore()
 
   const [name, setName] = useState("")
   const [franchiseId, setFranchiseId] = useState("")
   const [phone, setPhone] = useState("")
   const [description, setDescription] = useState("")
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!name.trim()) return alert("Le nom est obligatoire.")
     if (!franchiseId) return alert("La franchise est obligatoire.")
 
-    console.log("Créer ville :", { name, franchiseId, phone, description })
+    await SiteService.create({
+      name,
+      franchiseId: Number(franchiseId),
+      phone,
+      description
+    })
+
+    await loadFranchises()
+    onBack()
   }
 
   return (
     <div className="flex flex-col justify-between max-w-md h-full">
-      
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold">Créer une ville</h2>
+        <h2 className="text-xl font-semibold">Créer un site</h2>
 
         <input
           className="input"
-          placeholder="Nom de la ville *"
+          placeholder="Nom du site *"
           value={name}
           onChange={e => setName(e.target.value)}
         />
@@ -56,10 +64,7 @@ function CreateCityForm({ onBack }) {
       </div>
 
       <div className="flex justify-between mt-6">
-        <button
-          onClick={onBack}
-          className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
-        >
+        <button onClick={onBack} className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">
           ← Retour
         </button>
 
@@ -71,4 +76,4 @@ function CreateCityForm({ onBack }) {
   )
 }
 
-export default CreateCityForm
+export default CreateSiteForm

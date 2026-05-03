@@ -1,22 +1,21 @@
 import { useState } from "react"
+import { useFranchiseStore } from "../../store/franchise.store"
 
 function CreateFranchiseForm({ onBack }) {
+  const { createFranchise } = useFranchiseStore()
+
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
 
-  const handleSubmit = () => {
-    if (!name.trim()) {
-      alert("Le nom est obligatoire.")
-      return
-    }
+  const handleSubmit = async () => {
+    if (!name.trim()) return alert("Le nom est obligatoire.")
 
-    console.log("Créer franchise :", { name, description })
+    await createFranchise({ name, description })
+    onBack()
   }
 
   return (
     <div className="flex flex-col justify-between max-w-md h-full">
-      
-      {/* Contenu du formulaire */}
       <div className="space-y-4">
         <h2 className="text-xl font-semibold">Créer une franchise</h2>
 
@@ -35,12 +34,8 @@ function CreateFranchiseForm({ onBack }) {
         />
       </div>
 
-      {/* Bas de la card */}
       <div className="flex justify-between mt-6">
-        <button
-          onClick={onBack}
-          className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
-        >
+        <button onClick={onBack} className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">
           ← Retour
         </button>
 

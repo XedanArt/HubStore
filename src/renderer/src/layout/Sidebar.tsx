@@ -6,9 +6,9 @@ export default function Sidebar() {
   const {
     franchises,
     selectedFranchise,
-    selectedCity,
+    selectedSite,
     selectFranchise,
-    selectCity
+    selectSite
   } = useFranchiseStore()
 
   const [open, setOpen] = useState(false)
@@ -64,18 +64,18 @@ export default function Sidebar() {
               {/* Villes */}
               {selectedFranchise === f.name && (
                 <div className="pl-4 flex flex-col gap-1">
-                  {f.cities.map(city => (
+                  {f.cities.map(site => (
                     <button
-                      key={city}
+                      key={site}
                       className={`
                         w-full text-left px-2 py-1 rounded
                         text-[#f5f5f7]
                         hover:text-[#6366f1]
-                        ${selectedCity === city ? "text-[#6366f1]" : ""}
+                        ${selectedSite === site ? "text-[#6366f1]" : ""}
                       `}
-                      onClick={() => selectCity(city)}
+                      onClick={() => selectSite(site)}
                     >
-                      {city}
+                      {site}
                     </button>
                   ))}
                 </div>

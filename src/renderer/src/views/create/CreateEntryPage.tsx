@@ -3,12 +3,12 @@ import { useUIStore } from "../../store/ui.store"
 
 import CreateCard from "./CreateCard"
 import CreateFranchiseForm from "./CreateFranchiseForm"
-import CreateCityForm from "./CreateCityForm"
+import CreateSiteForm from "./CreateSiteForm"
 import CreateInterventionForm from "./CreateInterventionForm"
 
 function CreateEntryPage() {
   const [selectedForm, setSelectedForm] =
-    useState<null | "franchise" | "city" | "intervention">(null)
+    useState<null | "franchise" | "site" | "intervention">(null)
 
   const activeView = useUIStore(s => s.activeView)
 
@@ -41,7 +41,7 @@ function CreateEntryPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <CreateCard label="Franchise" onClick={() => setSelectedForm("franchise")} />
-            <CreateCard label="Ville" onClick={() => setSelectedForm("city")} />
+            <CreateCard label="Site" onClick={() => setSelectedForm("site")} />
             <CreateCard label="Intervention" onClick={() => setSelectedForm("intervention")} />
           </div>
         </>
@@ -51,8 +51,8 @@ function CreateEntryPage() {
         <CreateFranchiseForm onBack={() => setSelectedForm(null)} />
       )}
 
-      {selectedForm === "city" && (
-        <CreateCityForm onBack={() => setSelectedForm(null)} />
+      {selectedForm === "site" && (
+        <CreateSiteForm onBack={() => setSelectedForm(null)} />
       )}
 
       {selectedForm === "intervention" && (

@@ -1,6 +1,12 @@
 .
 └── HubStore/
-    ├── dist
+    ├── dist/
+    │   └── ipc/
+    │       ├── main.js
+    │       ├── main.js.map
+    │       ├── preload.js
+    │       ├── preload.js.map
+    │       └── test.css
     ├── docs
     ├── node_modules
     ├── prisma

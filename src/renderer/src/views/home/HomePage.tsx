@@ -5,10 +5,10 @@ export default function HomePage() {
 
   // Mock : on génère des interventions fictives à partir des franchises
   const interventions = franchises.flatMap(f =>
-    f.cities.map(city => ({
-      id: `${f.name}-${city}`,
+    f.cities.map(site => ({
+      id: `${f.name}-${site}`,
       franchise: f.name,
-      city,
+      site,
       object: "Intervention de maintenance",
       date: "2026-05-01",
       status: "pending"
@@ -52,7 +52,7 @@ export default function HomePage() {
             </div>
 
             <p className="text-[#a8a8b8] text-sm">
-              {inter.city} — {inter.franchise}
+              {inter.site} — {inter.franchise}
             </p>
 
             <p className="text-[#8888aa] text-xs mt-2">

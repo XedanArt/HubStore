@@ -2,17 +2,14 @@ import { app, BrowserWindow } from "electron";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
-// Résolution correcte du chemin IPC en dev / prod
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// En dev → src/main/ipc/dbhandlers.js
-// En prod → dist/ipc/dbhandlers.js
+// Charger les handlers IPC
 const dbHandlersPath = app.isPackaged
   ? path.join(__dirname, "../ipc/dbhandlers.js")
   : path.join(__dirname, "ipc/dbhandlers.js");
 
-// Import dynamique compatible ESM (convertit en file://)
 await import(pathToFileURL(dbHandlersPath).href);
 
 function createWindow() {
@@ -20,7 +17,11 @@ function createWindow() {
     width: 1200,
     height: 800,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
+      preload: app.isPackaged
+        ? path.join(__dirname, "../preload/preload.js") // PROD
+        : path.join(__dirname, "../preload/preload.js"), // DEV
+      contextIsolation: true,
+      nodeIntegration: false,
     },
   });
 

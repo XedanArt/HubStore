@@ -1,11 +1,12 @@
 import { useState } from "react"
 import { useFranchiseStore } from "../../store/franchise.store"
+import { InterventionService } from "../../services/intervention.service"
 
 function CreateInterventionForm({ onBack }) {
-  const { franchises } = useFranchiseStore()
+  const { franchises, loadFranchises } = useFranchiseStore()
 
   const [franchiseId, setFranchiseId] = useState("")
-  const [city, setCity] = useState("")
+  const [siteId, setSiteId] = useState("")
   const [object, setObject] = useState("")
   const [description, setDescription] = useState("")
   const [dateStart, setDateStart] = useState("")
@@ -13,26 +14,26 @@ function CreateInterventionForm({ onBack }) {
 
   const selectedFranchise = franchises.find(f => f.id === Number(franchiseId))
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!franchiseId) return alert("La franchise est obligatoire.")
-    if (!city) return alert("La ville est obligatoire.")
+    if (!siteId) return alert("Le site est obligatoire.")
     if (!object.trim()) return alert("L'objet est obligatoire.")
     if (!dateStart) return alert("La date d'intervention est obligatoire.")
 
-    console.log("Créer intervention :", {
-      franchiseId,
-      city,
-      object,
+    await InterventionService.create({
+      title: object,
       description,
-      dateStart,
-      dateEnd,
-      status: dateEnd ? "resolved" : "pending"
+      siteId: Number(siteId),
+      date: dateStart,
+      resolvedAt: dateEnd || null
     })
+
+    await loadFranchises()
+    onBack()
   }
 
   return (
     <div className="flex flex-col justify-between max-w-md h-full">
-      
       <div className="space-y-4">
         <h2 className="text-xl font-semibold">Créer une intervention</h2>
 
@@ -49,13 +50,13 @@ function CreateInterventionForm({ onBack }) {
 
         <select
           className="input"
-          value={city}
-          onChange={e => setCity(e.target.value)}
+          value={siteId}
+          onChange={e => setSiteId(e.target.value)}
           disabled={!selectedFranchise}
         >
-          <option value="">Sélectionner une ville *</option>
-          {selectedFranchise?.cities.map(c => (
-            <option key={c} value={c}>{c}</option>
+          <option value="">Sélectionner un site *</option>
+          {selectedFranchise?.sites.map(s => (
+            <option key={s.id} value={s.id}>{s.name}</option>
           ))}
         </select>
 
@@ -89,10 +90,7 @@ function CreateInterventionForm({ onBack }) {
       </div>
 
       <div className="flex justify-between mt-6">
-        <button
-          onClick={onBack}
-          className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
-        >
+        <button onClick={onBack} className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">
           ← Retour
         </button>
 
