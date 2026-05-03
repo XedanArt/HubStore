@@ -5,11 +5,17 @@ function CreateFranchiseForm({ onBack }) {
   const { createFranchise } = useFranchiseStore()
 
   const [name, setName] = useState("")
+  const [code, setCode] = useState("")
 
   const handleSubmit = async () => {
     if (!name.trim()) return alert("Le nom est obligatoire.")
+    if (!code.trim()) return alert("Le code est obligatoire.")
 
-    await createFranchise({ name })
+    await createFranchise({
+      name,
+      code: code.toUpperCase()
+    })
+
     onBack()
   }
 
@@ -23,6 +29,13 @@ function CreateFranchiseForm({ onBack }) {
           placeholder="Nom de la franchise *"
           value={name}
           onChange={e => setName(e.target.value)}
+        />
+
+        <input
+          className="input"
+          placeholder="Code (ex: MCD) *"
+          value={code}
+          onChange={e => setCode(e.target.value)}
         />
       </div>
 

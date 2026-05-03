@@ -1,21 +1,31 @@
 import { create } from "zustand"
 import { FranchiseService } from "../services/franchise.service"
 
+type Site = {
+  id: number
+  name: string
+  phone?: string | null
+  description?: string | null
+  franchiseId: number
+}
+
 type Franchise = {
   id: number
   name: string
+  code: string        // <-- AJOUT IMPORTANT
+  sites: Site[]
 }
 
 type FranchiseState = {
   franchises: Franchise[]
-  selectedFranchise: string | null
-  selectedSite: string | null
+  selectedFranchise: Franchise | null
+  selectedSite: Site | null
 
   loadFranchises: () => Promise<void>
-  createFranchise: (payload: { name: string }) => Promise<void>
+  createFranchise: (payload: { name: string; code: string }) => Promise<void>
 
-  selectFranchise: (name: string) => void
-  selectSite: (name: string) => void
+  selectFranchise: (franchise: Franchise) => void
+  selectSite: (site: Site) => void
   resetSelection: () => void
 }
 
@@ -26,25 +36,27 @@ export const useFranchiseStore = create<FranchiseState>((set) => ({
   selectedSite: null,
 
   loadFranchises: async () => {
-    const data = await FranchiseService.getAll()
-    set({ franchises: data || [] })
+    const res = await FranchiseService.getAll()
+    const data = res?.data || res || []
+    set({ franchises: data })
   },
 
   createFranchise: async (payload) => {
     await FranchiseService.create(payload)
-    const data = await FranchiseService.getAll()
-    set({ franchises: data || [] })
+    const res = await FranchiseService.getAll()
+    const data = res?.data || res || []
+    set({ franchises: data })
   },
 
-  selectFranchise: (name) =>
+  selectFranchise: (franchise) =>
     set({
-      selectedFranchise: name,
+      selectedFranchise: franchise,
       selectedSite: null,
     }),
 
-  selectSite: (name) =>
+  selectSite: (site) =>
     set({
-      selectedSite: name,
+      selectedSite: site,
     }),
 
   resetSelection: () =>

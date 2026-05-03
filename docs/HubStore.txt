@@ -1,0 +1,5 @@
+Intervention :
+Génération d'un numéro de ticket
+--> génération d'un code unique par franchise (FRA1, FRA2, etc.)
+--> génération d'un code unique par site (PAR16, ORLY, etc.)
+--> génération d'un numéro logique (FRA1-PAR16-01)

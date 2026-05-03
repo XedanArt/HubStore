@@ -24,8 +24,8 @@ function CreateInterventionForm({ onBack }) {
       title: object,
       description,
       siteId: Number(siteId),
-      date: dateStart,
-      resolvedAt: dateEnd || null
+      date: new Date(dateStart).toISOString(),
+      resolvedAt: dateEnd ? new Date(dateEnd).toISOString() : null
     })
 
     await loadFranchises()

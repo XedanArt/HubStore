@@ -10,23 +10,28 @@ datasource db {
 model Franchise {
   id    Int    @id @default(autoincrement())
   name  String
+  code  String   // ex: MCD, STB, KFC
   sites Site[]
 }
 
 model Site {
-  id          Int       @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   name        String
+  phone       String?
+  description String?
   franchiseId Int
   franchise   Franchise @relation(fields: [franchiseId], references: [id])
   interventions Intervention[]
 }
 
 model Intervention {
-  id          Int       @id @default(autoincrement())
-  title       String
-  description String?
-  date        DateTime  @default(now())
-  resolvedAt  DateTime?
-  siteId      Int
-  site        Site      @relation(fields: [siteId], references: [id])
+  id            Int      @id @default(autoincrement())
+  ticketNumber  Int
+  ticketCode    String
+  title         String
+  description   String?
+  date          DateTime
+  resolvedAt    DateTime?
+  siteId        Int
+  site          Site     @relation(fields: [siteId], references: [id])
 }

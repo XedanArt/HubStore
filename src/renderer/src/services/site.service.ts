@@ -1,6 +1,10 @@
 export const SiteService = {
   getAll: () => window.api.db.getSites(),
 
-  create: (data: { name: string; franchiseId: number }) =>
-    window.api.db.createSite(data)
+  create: (payload: {
+    name: string
+    franchiseId: number
+    phone?: string | null
+    description?: string | null
+  }) => window.api.db.createSite(payload),
 }

@@ -1,7 +1,4 @@
-Ici, les informations sur les différentes techno qui constituent la stack.
-Informations sur les différents fichiers de configuration du projet.
-Informations sur les différents dossiers et leur utilité.
-
+////////// STACK DU PROJET //////////
 Electron : npx electron --version ---> v41.3.0
 Vite : npm list vite ---> vite@8.0.10
 React : npm list react react-dom ---> react@19.2.5
@@ -13,3 +10,12 @@ TypeScript : npx tsc -v ---> Version 6.0.3
 Node.js : node -v ---> v24.15.0
 npm : npm -v ---> 11.12.1
 all : npm list --depth=0 
+
+
+Ici, les informations sur les différentes techno qui constituent la stack.
+Informations sur les différents fichiers de configuration du projet.
+
+src/renderer/src : Différence entre les dossiers Layout, Pages et Views.
+--> Layout = Le squelette, ce qui ne change pas (Header, Sidebar, MainView).
+--> Pages = Les "états de navigation", c'est un écran complet.
+--> Views = Les composants d'affichage internes, un morceau d'une page (tableau, formulaire, card).

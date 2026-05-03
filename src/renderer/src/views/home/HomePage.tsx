@@ -1,34 +1,44 @@
-import { useFranchiseStore } from "../../store/franchise.store"
+import { useEffect } from "react"
+import { useInterventionStore } from "../../store/intervention.store"
 
 export default function HomePage() {
-  const { franchises } = useFranchiseStore()
+  const {
+    interventions,
+    loadInterventions,
+    selectIntervention,
+    searchQuery,
+    searchResults
+  } = useInterventionStore()
 
-  // Mock : on génère des interventions fictives à partir des franchises
-  const interventions = franchises.flatMap(f =>
-    f.cities.map(site => ({
-      id: `${f.name}-${site}`,
-      franchise: f.name,
-      site,
-      object: "Intervention de maintenance",
-      date: "2026-05-01",
-      status: "pending"
-    }))
+  useEffect(() => {
+    loadInterventions()
+  }, [])
+
+  const list = searchQuery ? searchResults : interventions
+
+  const sorted = [...list].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   )
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-semibold">Dernières interventions</h1>
+      <h1 className="text-2xl font-semibold">
+        {searchQuery ? "Résultats de recherche" : "Dernières interventions"}
+      </h1>
 
-      {interventions.length === 0 && (
-        <p className="text-[#a8a8b8]">Aucune intervention pour le moment.</p>
+      {sorted.length === 0 && (
+        <p className="text-[#a8a8b8]">
+          {searchQuery ? "Aucun résultat." : "Aucune intervention pour le moment."}
+        </p>
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {interventions.map(inter => (
+        {sorted.map(inter => (
           <div
             key={inter.id}
+            onClick={() => selectIntervention(inter)}
             className="
-              p-4 rounded-xl
+              p-4 rounded-xl cursor-pointer
               bg-[rgba(37,37,65,0.6)]
               backdrop-blur-xl
               border border-[rgba(255,255,255,0.1)]
@@ -37,27 +47,31 @@ export default function HomePage() {
               transition
             "
           >
-            <div className="flex justify-between items-center mb-2">
-              <div className="font-semibold">{inter.object}</div>
-              <span
-                className={`
-                  text-xs px-2 py-1 rounded
-                  ${inter.status === "pending"
-                    ? "bg-yellow-500/20 text-yellow-300"
-                    : "bg-green-500/20 text-green-300"}
-                `}
-              >
-                {inter.status === "pending" ? "En cours" : "Résolue"}
-              </span>
+            {/* Titre + code */}
+            <div className="font-semibold mb-1">
+              {inter.ticketCode} — {inter.title}
             </div>
 
+            {/* Description */}
             <p className="text-[#a8a8b8] text-sm">
-              {inter.site} — {inter.franchise}
+              {inter.description || "Aucune description"}
             </p>
 
+            {/* Date */}
             <p className="text-[#8888aa] text-xs mt-2">
-              {inter.date}
+              Créée le : {new Date(inter.date).toLocaleDateString("fr-FR")}
             </p>
+
+            {/* Statut */}
+            {inter.resolvedAt ? (
+              <p className="text-green-400 text-xs mt-1">
+                Résolue le : {new Date(inter.resolvedAt).toLocaleDateString("fr-FR")}
+              </p>
+            ) : (
+              <p className="text-yellow-400 text-xs mt-1">
+                En cours
+              </p>
+            )}
           </div>
         ))}
       </div>

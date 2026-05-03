@@ -17,10 +17,10 @@ function CreateSiteForm({ onBack }) {
     await SiteService.create({
       name,
       franchiseId: Number(franchiseId),
-      phone,
-      description
+      phone: phone.trim() || null,
+      description: description.trim() || null,
     })
-
+    
     await loadFranchises()
     onBack()
   }
@@ -47,6 +47,20 @@ function CreateSiteForm({ onBack }) {
             <option key={f.id} value={f.id}>{f.name}</option>
           ))}
         </select>
+
+        <input
+          className="input"
+          placeholder="Téléphone (optionnel)"
+          value={phone}
+          onChange={e => setPhone(e.target.value)}
+        />
+
+        <textarea
+          className="input"
+          placeholder="Description (optionnel)"
+          value={description}
+          onChange={e => setDescription(e.target.value)}
+        />
       </div>
 
       <div className="flex justify-between mt-6">

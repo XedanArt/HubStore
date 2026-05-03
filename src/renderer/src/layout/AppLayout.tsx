@@ -23,7 +23,7 @@ export default function AppLayout() {
         <Header />
 
         {/* Sidebar + MainView */}
-        <div className="flex flex-1">
+        <div className="flex flex-1 min-h-0">  {/* ← LA LIGNE QUI RÈGLE TOUT */}
           <Sidebar />
           <MainView />
         </div>
