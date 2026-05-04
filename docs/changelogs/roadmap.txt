@@ -1,0 +1,57 @@
+///////////////////////////////////////
+///////////////////////////////////////
+UI/ CSS/ STYLES :
+///////////////////////////////////////
+- Bloquer la taille minimale et maximale de l'UI
+- Mode jour/nuit, thème ?
+- Refactor de la MainView - HomePage, affichage des "Dernières interventions" dans un trail (carousel) horizontal + Affichage d'un bloc en dessous affichant d'autres informations (à définir) --> limiter le nombre d'interventions visibles dans le carousel (10-20 max)
+- Chercher des composants plus esthétiques (barre scrollable)
+- Refactor de la Page Franchise qui n'affiche rien et pourrait un bloc informatif fixe
+
+///////////////////////////////////////
+///////////////////////////////////////
+FONCTIONNALITÉS BLOCS :
+///////////////////////////////////////
+SIDEBAR
+- Création d'un bloc "Rendez-vous" sous "Franchises"
+  --> implique la création d'une nouvelle table
+
+- Création d'un bloc "Urgence" sous "Rendez-vous"
+  --> implique le rajout d'un bouton dans le formulaire de création d'intervention pour appliquer un état d'Urgence
+  --> ajouter la possibilité de classifier une inter en urgence post création ?
+
+- Création d'un bloc "Documentation"
+  --> création d'une visionneuse de PDF intégrée
+
+FRANCHISES :
+- Refactor de la Page Franchise qui n'affiche rien et pourrait afficher un bloc informatif fixe
+
+SITES :
+- Ajout d'un bloc "Parc informatique" au dessus de la liste des interventions --> implique un champ parc informatique détaillé dans le formulaire de création de site
+
+///////////////////////////////////////
+///////////////////////////////////////
+FONCTIONNALITÉS MAJEURES :
+///////////////////////////////////////
+- Système d'authentification admin/user
+- Actualisation automatique du logiciel après saisie d'une entrée (+timer ?)
+- Capslock automatique à la création d'une franchise (uniformisation des noms de franchises)
+- Permettre la gestion des entrées via clic droit ou un formulaire dédié (button) ?
+- Interdire les doublons (franchises, sites, interventions)
+
+- Rajout des fonctionnalités admin et user avant création du système d'authentification
+  --> bloc query pour (admin)
+  --> création et gestion des utilisateurs (admin)
+  --> gérer les entrées, avec justification obligatoire si suppression (user)
+
+///////////////////////////////////////
+///////////////////////////////////////
+AUTRES :
+///////////////////////////////////////
+- Créer le binaire
+
+///////////////////////////////////////
+///////////////////////////////////////
+SÉCURITÉ :
+///////////////////////////////////////
+- Vérification et application des bonnes pratiques de sécurité

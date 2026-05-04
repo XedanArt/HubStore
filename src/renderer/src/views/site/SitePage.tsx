@@ -8,7 +8,7 @@ export default function SitePage({ site, franchise }) {
   return (
     <div>
       <h1 className="text-2xl font-semibold mb-4">
-        {site.name} — {franchise.name}
+        {franchise.name} — {site.name}
       </h1>
 
       <div

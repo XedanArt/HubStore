@@ -7,29 +7,30 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // Couleurs dynamiques basées sur les variables CSS
         bg: {
-          primary: "#0f0f1e",
-          secondary: "#1a1a2e",
-          tertiary: "#16213e",
+          primary: "var(--bg-primary)",
+          secondary: "var(--bg-secondary)",
+          tertiary: "var(--bg-tertiary)",
         },
         surface: {
-          base: "#252541",
-          hover: "#2d2d4a",
-          active: "#353560",
-          light: "#3a3a5c",
+          base: "var(--surface-base)",
+          hover: "var(--surface-hover)",
+          active: "var(--surface-active)",
+          light: "var(--surface-light)",
         },
         border: {
-          base: "#3a3a5c",
-          light: "#4a4a6a",
-          accent: "#6366f1",
+          base: "var(--border-base)",
+          light: "var(--border-light)",
+          accent: "var(--accent-primary)",
         },
         text: {
-          primary: "#f5f5f7",
-          secondary: "#a8a8b8",
-          tertiary: "#888899",
+          primary: "var(--text-primary)",
+          secondary: "var(--text-secondary)",
+          tertiary: "var(--text-tertiary)",
         },
         accent: {
-          primary: "#8b5cf6",
+          primary: "var(--accent-primary)",
           secondary: "#6366f1",
           success: "#10b981",
           warning: "#f59e0b",

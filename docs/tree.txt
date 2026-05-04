@@ -3,18 +3,17 @@
     ├── dist/
     │   ├── ipc/
     │   │   ├── dbhandlers.js
-    │   │   └── dhhandlers.js.map
+    │   │   └── dbhandlers.js.map
     │   ├── main.js
-    │   ├── main.js.map
+    │   ├── mains.js.map
     │   ├── preload.js
     │   ├── preload.js.map
     │   └── test.css
-    ├── docs/
-    ├── node_modules/
+    ├── docs
+    ├── node_modules
     ├── prisma/
     │   ├── migrations/
     │   ├── dev.db
-    │   ├── dev.db-journal
     │   └── schema.prisma
     ├── scripts/
     │   ├── build-ipc.mjs
@@ -49,10 +48,12 @@
     │   │   │   │   └── Sites.tsx
     │   │   │   ├── services/
     │   │   │   │   ├── franchise.service.ts
-    │   │   │   │   ├── interve,tion.service.ts
+    │   │   │   │   ├── intervention.service.ts
     │   │   │   │   └── site.service.ts
     │   │   │   ├── store/
     │   │   │   │   ├── franchise.store.ts
+    │   │   │   │   ├── intervention.store.ts
+    │   │   │   │   ├── site.store.ts
     │   │   │   │   └── ui.store.ts
     │   │   │   ├── types/
     │   │   │   │   ├── database.ts
@@ -62,22 +63,26 @@
     │   │   │   ├── views/
     │   │   │   │   ├── create/
     │   │   │   │   │   ├── CreateCard.tsx
-    │   │   │   │   │   ├── CreateSiteForm.tsx
+    │   │   │   │   │   ├── CreateCityForm.tsx
     │   │   │   │   │   ├── CreateEntryPage.tsx
     │   │   │   │   │   ├── CreateFranchiseForm.tsx
     │   │   │   │   │   └── CreateInterventionForm.tsx
-    │   │   │   │   └── home/
-    │   │   │   │       └── HomePage.tsx
+    │   │   │   │   ├── home/
+    │   │   │   │   │   └── HomePage.tsx
+    │   │   │   │   ├── intervention/
+    │   │   │   │   │   └── InterventionPage.tsx
+    │   │   │   │   └── site/
+    │   │   │   │       └── SitePage.tsx
     │   │   │   ├── App.tsx
+    │   │   │   ├── global.d.ts
     │   │   │   └── main.tsx
     │   │   ├── .gitignore
     │   │   ├── index.css
     │   │   ├── index.html
     │   │   ├── postcss.config.cjs
-    │   │   ├── tailwind.cjs
+    │   │   ├── tailwind.config.cjs
     │   │   └── vite.config.ts
-    │   └── shared/
-    │       └── types.ts
+    │   └── shared
     ├── .gitignore
     ├── package-lock.json
     ├── package.json

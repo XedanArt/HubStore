@@ -13,9 +13,3 @@ all : npm list --depth=0
 
 
 Ici, les informations sur les différentes techno qui constituent la stack.
-Informations sur les différents fichiers de configuration du projet.
-
-src/renderer/src : Différence entre les dossiers Layout, Pages et Views.
---> Layout = Le squelette, ce qui ne change pas (Header, Sidebar, MainView).
---> Pages = Les "états de navigation", c'est un écran complet.
---> Views = Les composants d'affichage internes, un morceau d'une page (tableau, formulaire, card).

@@ -55,12 +55,21 @@ export default function MainView() {
 
           {/* Franchise sélectionnée mais pas de site */}
           {selectedFranchise && !selectedSite && !selectedIntervention && (
-            <div>
-              <h1 className="text-2xl font-semibold mb-4">
+            <div
+              className="
+                p-6 rounded-xl
+                bg-[rgba(37,37,65,0.6)]
+                backdrop-blur-xl
+                border border-[rgba(255,255,255,0.1)]
+                shadow-[0_0_20px_rgba(0,0,0,0.3)]
+              "
+            >
+              <h1 className="text-2xl font-semibold mb-2">
                 Franchise : {selectedFranchise.name}
               </h1>
+
               <p className="text-[#a8a8b8]">
-                Sélectionnez un site dans la sidebar.
+                Sélectionnez un site dans la sidebar pour afficher les sites et leurs interventions.
               </p>
             </div>
           )}

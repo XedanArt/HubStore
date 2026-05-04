@@ -1,8 +1,50 @@
 @import "tailwindcss";
 
-@import "tailwindcss";
+/* --- classes globales réutilisables --- */
 
-/* --- Tes classes globales réutilisables --- */
+/* THEME JOUR (ton thème actuel) */
+.theme-light {
+  --bg-primary: #0f0f1e;
+  --bg-secondary: #1a1a2e;
+  --bg-tertiary: #16213e;
+
+  --surface-base: #252541;
+  --surface-hover: #2d2d4a;
+  --surface-active: #353560;
+  --surface-light: #3a3a5c;
+
+  --text-primary: #f5f5f7;
+  --text-secondary: #a8a8b8;
+  --text-tertiary: #888899;
+
+  --border-base: #3a3a5c;
+  --border-light: #4a4a6a;
+
+  --accent-primary: #8b5cf6;
+}
+
+/* THEME NUIT (style Discord) */
+.theme-dark {
+  --bg-primary: #1e1f22;
+  --bg-secondary: #2b2d31;
+  --bg-tertiary: #3a3c42;
+
+  --surface-base: #2b2d31;
+  --surface-hover: #3a3c42;
+  --surface-active: #4b4d53;
+  --surface-light: #3f4147;
+
+  --text-primary: #f2f3f5;
+  --text-secondary: #b5bac1;
+  --text-tertiary: #8e9297;
+
+  --border-base: #3f4147;
+  --border-light: #4b4d53;
+
+  --accent-primary: #5865f2; /* bleu Discord */
+}
+
+/* --- tes classes utilitaires existantes --- */
 
 .input {
   @apply w-full px-3 py-2 rounded-lg

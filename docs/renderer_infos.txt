@@ -1,0 +1,4 @@
+src/renderer/src : Différence entre les dossiers Layout, Pages et Views.
+--> Layout = Le squelette, ce qui ne change pas (Header, Sidebar, MainView), les composants majeurs, principaux.
+--> Pages = Les "états de navigation", c'est un écran complet, une nouvelle page comme sur un site.
+--> Views = Les composants d'affichage internes, un morceau d'une page (tableau, formulaire, card).
