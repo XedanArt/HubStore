@@ -1,25 +1,52 @@
 import { create } from "zustand"
 
-export type Theme = "light" | "dark"
+type Theme = "light" | "dark"
 
-export const useThemeStore = create<{
+type ThemeState = {
   theme: Theme
-  setTheme: (t: Theme) => void
   toggleTheme: () => void
-}>((set) => ({
+  setTheme: (theme: Theme) => void
+}
+
+export const useThemeStore = create<ThemeState>((set) => ({
   theme: "light",
 
   setTheme: (theme) => {
-    document.documentElement.classList.remove("theme-light", "theme-dark")
-    document.documentElement.classList.add(`theme-${theme}`)
+    const root = document.documentElement
+
+    root.classList.add("theme-transition")
+
+    root.classList.remove("theme-light", "theme-dark")
+    root.classList.add(`theme-${theme}`)
+
+    localStorage.setItem("theme", theme)
+
     set({ theme })
+
+    setTimeout(() => {
+      root.classList.remove("theme-transition")
+    }, 300)
   },
 
-  toggleTheme: () =>
+  toggleTheme: () => {
+    const root = document.documentElement
+
+    root.classList.add("theme-transition")
+
     set((state) => {
-      const next = state.theme === "light" ? "dark" : "light"
-      document.documentElement.classList.remove("theme-light", "theme-dark")
-      document.documentElement.classList.add(`theme-${next}`)
-      return { theme: next }
-    }),
+      const newTheme = state.theme === "light" ? "dark" : "light"
+
+      root.classList.remove("theme-light", "theme-dark")
+      root.classList.add(`theme-${newTheme}`)
+
+      localStorage.setItem("theme", newTheme)
+
+      return { theme: newTheme }
+    })
+
+    setTimeout(() => {
+      root.classList.remove("theme-transition")
+    }, 300)
+  },
 }))
+

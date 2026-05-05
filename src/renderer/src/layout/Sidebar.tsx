@@ -19,13 +19,20 @@ export default function Sidebar() {
   const setPage = useUIStore(s => s.setPage)
 
   const handleSelectFranchise = (f) => {
-    resetIntervention()     // ⬅️ IMPORTANT
+  resetIntervention()
+
+  if (selectedFranchise?.id === f.id) {
+    // toggle OFF (fermer)
+    selectFranchise(null)
+  } else {
+    // toggle ON (ouvrir)
     selectFranchise(f)
-    setPage("home")
   }
+  setPage("home")
+} 
 
   const handleSelectSite = (s) => {
-    resetIntervention()     // ⬅️ IMPORTANT
+    resetIntervention()
     selectSite(s)
     setPage("home")
   }
@@ -36,11 +43,15 @@ export default function Sidebar() {
         w-64 h-full
         flex flex-col
         p-4
-        bg-[rgba(37,37,65,0.4)]
+
+        bg-surface-base
+        border-r border-border-base
+
+        text-text-primary
+
         backdrop-blur-xl
-        border-r border-[rgba(255,255,255,0.1)]
-        shadow-[inset_0_0_20px_rgba(255,255,255,0.05)]
-        text-[#f5f5f7]
+        [html.theme-dark_&]:backdrop-blur-none
+
         overflow-hidden
       "
     >
@@ -48,9 +59,16 @@ export default function Sidebar() {
       <button
         className="
           w-full px-3 py-2 rounded-lg text-left
-          bg-[rgba(37,37,65,0.6)]
-          hover:bg-[rgba(45,45,74,0.6)]
-          border border-[rgba(255,255,255,0.05)]
+
+          bg-surface-base
+          border border-border-base
+
+          shadow-sm 
+          hover:shadow-lg
+          hover:-translate-y-1 transform 
+
+          hover:bg-surface-hover
+          transition
         "
         onClick={() => setOpen(!open)}
       >
@@ -60,18 +78,35 @@ export default function Sidebar() {
       {/* ZONE SCROLLABLE */}
       <div className="flex-1 overflow-y-auto mt-3 pr-1">
         {open && (
-          <div className="flex flex-col gap-2 pl-2">
+          <div
+            className="
+              border border-border-base
+              rounded-lg
+              overflow-hidden
+              divide-y divide-border-base
+            "
+          >
             {franchises.map(f => {
-              const sitesForFranchise = sites.filter(s => s.franchiseId === f.id)
+              const sitesForFranchise = sites.filter(
+                s => s.franchiseId === f.id
+              )
 
               return (
                 <div key={f.id}>
                   {/* Franchise */}
                   <button
                     className={`
-                      w-full text-left px-2 py-1 rounded
-                      hover:text-[#8b5cf6]
-                      ${selectedFranchise?.id === f.id ? "text-[#8b5cf6]" : ""}
+                      w-full text-left px-3 py-2
+                      transition
+
+                      bg-surface-base
+                      hover:bg-surface-hover
+
+                      ${
+                        selectedFranchise?.id === f.id
+                          ? "text-accent-primary bg-surface-hover border-l-2 border-accent-primary"
+                          : "text-text-primary"
+                      }
                     `}
                     onClick={() => handleSelectFranchise(f)}
                   >
@@ -80,14 +115,22 @@ export default function Sidebar() {
 
                   {/* Sites */}
                   {selectedFranchise?.id === f.id && (
-                    <div className="pl-4 flex flex-col gap-1">
+                    <div className="bg-bg-secondary border-t border-border-base relative pl-3">
                       {sitesForFranchise.map(site => (
                         <button
                           key={site.id}
                           className={`
-                            w-full text-left px-2 py-1 rounded
-                            hover:text-[#6366f1]
-                            ${selectedSite?.id === site.id ? "text-[#6366f1]" : ""}
+                            w-full text-left pl-8 pr-3 py-2 text-sm
+                            transition
+
+                            bg-bg-secondary
+                            hover:bg-surface-hover
+
+                            ${
+                              selectedSite?.id === site.id
+                                ? "text-accent-secondary bg-surface-hover border-l-2 border-accent-secondary"
+                                : "text-text-secondary"
+                            }
                           `}
                           onClick={() => handleSelectSite(site)}
                         >
@@ -108,9 +151,16 @@ export default function Sidebar() {
         <button
           className="
             w-full px-3 py-2 rounded-lg text-left
-            bg-[rgba(37,37,65,0.6)]
-            hover:bg-[rgba(45,45,74,0.6)]
-            border border-[rgba(255,255,255,0.05)]
+
+            bg-surface-base
+            border border-border-base
+
+            shadow-sm 
+            hover:shadow-lg
+            hover:-translate-y-1 transform
+
+            hover:bg-surface-hover
+            transition
           "
           onClick={() => setPage("create")}
         >
@@ -120,9 +170,16 @@ export default function Sidebar() {
         <button
           className="
             w-full px-3 py-2 rounded-lg text-left
-            bg-[rgba(37,37,65,0.6)]
-            hover:bg-[rgba(45,45,74,0.6)]
-            border border-[rgba(255,255,255,0.05)]
+
+            bg-surface-base
+            border border-border-base
+
+            shadow-sm 
+            hover:shadow-lg
+            hover:-translate-y-1 transform
+            
+            hover:bg-surface-hover
+            transition
           "
           onClick={() => setPage("manage")}
         >

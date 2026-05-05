@@ -12,7 +12,7 @@ function CreateEntryPage() {
 
   const activeView = useUIStore(s => s.activeView)
 
-  // 🔥 Reset automatique quand on revient sur la page "create"
+  // Reset automatique quand on revient sur la page
   useEffect(() => {
     if (activeView === "create") {
       setSelectedForm(null)
@@ -25,16 +25,24 @@ function CreateEntryPage() {
         max-w-7xl mx-auto
         p-6
         rounded-xl
-        bg-[rgba(37,37,65,0.6)]
+
+        bg-surface-base
+        border border-border-base
+
+        text-text-primary
+
+        shadow-sm
+
         backdrop-blur-xl
-        border border-[rgba(255,255,255,0.1)]
-        shadow-[0_0_20px_rgba(0,0,0,0.3)]
+        [html.theme-dark_&]:backdrop-blur-none
+
+        transition-colors duration-200
       "
     >
 
       {!selectedForm && (
         <>
-          <p className="text-[#a8a8b8] mb-6">
+          <p className="text-text-secondary mb-6">
             Choisissez ce que vous souhaitez créer.
           </p>
 

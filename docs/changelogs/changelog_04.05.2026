@@ -1,0 +1,4 @@
+- Refonte UI
+- Ajout de règles minWidth/minHeight pour éviter de casser l'UI
+- Création du générateur de code ticket (format : FRA000001)
+- Partie 1 : Refonte UI via deux thèmes, light/dark

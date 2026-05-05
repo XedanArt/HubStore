@@ -1,4 +1,3 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./index.html",
@@ -7,7 +6,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Couleurs dynamiques basées sur les variables CSS
         bg: {
           primary: "var(--bg-primary)",
           secondary: "var(--bg-secondary)",
@@ -37,6 +35,7 @@ module.exports = {
           danger: "#ef4444",
         },
       },
+
       backdropBlur: {
         xs: "2px",
         sm: "4px",
@@ -44,10 +43,7 @@ module.exports = {
         lg: "16px",
         xl: "24px",
       },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
+
       boxShadow: {
         glow: "0 0 20px rgba(139, 92, 246, 0.3)",
         "glow-lg": "0 0 40px rgba(139, 92, 246, 0.4)",

@@ -21,8 +21,11 @@ function CreateFranchiseForm({ onBack }) {
 
   return (
     <div className="flex flex-col justify-between max-w-md h-full">
+      
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold">Créer une franchise</h2>
+        <h2 className="text-xl font-semibold text-text-primary">
+          Créer une franchise
+        </h2>
 
         <input
           className="input"
@@ -40,13 +43,21 @@ function CreateFranchiseForm({ onBack }) {
       </div>
 
       <div className="flex justify-between mt-6">
-        <button onClick={onBack} className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">
+        
+        <button 
+          onClick={onBack} 
+          className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
+        >
           ← Retour
         </button>
 
-        <button className="btn-primary" onClick={handleSubmit}>
+        <button 
+          className="btn-primary" 
+          onClick={handleSubmit}
+        >
           Créer
         </button>
+
       </div>
     </div>
   )

@@ -1,0 +1,22 @@
+- Thème : modification du mode light --> blanc immaculé => crème
+- Thème : ajout transition douce entre les deux thèmes
+- Refonte des cards HomePage (hover/shadow)
+- Améliorations Header : 
+  - Îcone Avatar
+  - Boutons (hover/shadow)
+- Améliorations Sidebar : 
+  - Bouton principal (hover/shadow)
+  - Listing sites (style arborescence)
+  - Bouton "Créer une entrée"
+  - Bouton "Gérer les entrées"
+  - View Franchise
+  - View Site
+  - View Intervention
+  - CreateEntryPage
+  - CreateCard
+  - CreateFranchiseForm
+  - CreateInterventionForm
+  - CreateSiteForm
+- Amélioration barre de scroll
+
+

@@ -9,16 +9,30 @@ export default function CreateCard({ label, onClick }: CreateCardProps) {
       onClick={onClick}
       className="
         p-6 rounded-xl cursor-pointer
-        bg-[rgba(37,37,65,0.6)]
+
+        bg-surface-base
+        border border-border-base
+
+        text-text-primary
+
+        shadow-sm
+        hover:shadow-lg
+
+        transform hover:-translate-y-1
+
+        hover:bg-surface-hover
+
+        transition-all duration-200 ease-out
+
         backdrop-blur-xl
-        border border-[rgba(255,255,255,0.1)]
-        shadow-[0_0_20px_rgba(0,0,0,0.3)]
-        hover:bg-[rgba(45,45,74,0.6)]
-        transition
+        [html.theme-dark_&]:backdrop-blur-none
       "
     >
-      <h2 className="text-xl font-semibold mb-2">{label}</h2>
-      <p className="text-[#a8a8b8]">
+      <h2 className="text-xl font-semibold mb-2">
+        {label}
+      </h2>
+
+      <p className="text-text-secondary">
         Créer une nouvelle {label.toLowerCase()}.
       </p>
     </div>

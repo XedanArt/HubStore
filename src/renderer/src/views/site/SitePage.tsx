@@ -13,11 +13,16 @@ export default function SitePage({ site, franchise }) {
 
       <div
         className="
-          p-6 rounded-xl
-          bg-[rgba(37,37,65,0.6)]
-          backdrop-blur-xl
-          border border-[rgba(255,255,255,0.1)]
-          shadow-[0_0_20px_rgba(0,0,0,0.3)]
+              p-4 rounded-xl cursor-pointer
+              
+              bg-surface-base
+              border border-border-base
+              
+              hover:bg-surface-hover
+              
+              transition-all duration-200 ease-out 
+              
+              backdrop-blur-xl [html.theme-dark_&]:backdrop-blur-none
         "
       >
         <p><strong>Téléphone :</strong> {site.phone || "—"}</p>

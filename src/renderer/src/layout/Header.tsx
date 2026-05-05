@@ -16,11 +16,14 @@ export default function Header() {
       className="
         w-full h-14 px-6
         flex items-center gap-4
-        bg-[rgba(37,37,65,0.4)]
+
+        bg-surface-base
+        border-b border-border-base
+
+        text-text-primary
+
         backdrop-blur-xl
-        border-b border-[rgba(255,255,255,0.1)]
-        shadow-[inset_0_0_20px_rgba(139,92,246,0.1)]
-        text-[#f5f5f7]
+        [html.theme-dark_&]:backdrop-blur-none
       "
     >
       {/* Bouton Home */}
@@ -33,10 +36,16 @@ export default function Header() {
         className="
           w-8 h-8 flex items-center justify-center
           rounded-lg
-          bg-[#1f1f33]/70
-          border border-[#3a3a5c]/40
-          shadow-[0_0_10px_rgba(139,92,246,0.2)]
-          hover:bg-[#2a2a44]/70
+
+          bg-surface-base
+          border border-border-base
+
+          shadow-sm 
+          hover:shadow-lg 
+              
+          hover:-translate-y-1 transform 
+          
+          hover:bg-surface-hover
           transition
         "
       >
@@ -44,7 +53,9 @@ export default function Header() {
       </button>
 
       {/* Titre */}
-      <div className="text-xl font-semibold">HubStore</div>
+      <div className="text-xl font-semibold">
+        HubStore
+      </div>
 
       {/* Barre de recherche */}
       <div className="flex-1 flex justify-center">
@@ -57,13 +68,16 @@ export default function Header() {
             w-full max-w-md
             px-4 py-2
             rounded-lg
-            bg-[#252541]
-            border border-[#3a3a5c]/50
-            text-[#f5f5f7]
-            placeholder-[#888899]
+
+            bg-surface-base
+            border border-border-base
+
+            text-text-primary
+            placeholder:text-text-tertiary
+
             focus:outline-none
-            focus:border-[#8b5cf6]
-            focus:ring-1 focus:ring-[#8b5cf6]/50
+            focus:border-accent-primary
+            focus:ring-1 focus:ring-accent-primary/50
           "
         />
       </div>
@@ -74,9 +88,16 @@ export default function Header() {
         className="
           w-8 h-8 flex items-center justify-center
           rounded-lg
-          bg-[#252541]
-          border border-[#3a3a5c]/40
-          hover:bg-[#2d2d4a]
+
+          bg-surface-base
+          border border-border-base
+
+          shadow-sm 
+          hover:shadow-lg 
+              
+          hover:-translate-y-1 transform 
+
+          hover:bg-surface-hover
           transition
         "
       >
@@ -87,8 +108,12 @@ export default function Header() {
       <div
         className="
           w-8 h-8 rounded-full
-          bg-[#8b5cf6]
-          shadow-[0_0_20px_rgba(139,92,246,0.3)]
+          bg-amber-50
+
+          shadow-sm 
+          hover:shadow-lg 
+              
+          hover:-translate-y-1 transform 
         "
       />
     </header>

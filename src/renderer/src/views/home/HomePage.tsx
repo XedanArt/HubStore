@@ -22,12 +22,12 @@ export default function HomePage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-semibold">
+      <h1 className="text-2xl font-semibold text-text-primary">
         {searchQuery ? "Résultats de recherche" : "Dernières interventions"}
       </h1>
 
       {sorted.length === 0 && (
-        <p className="text-[#a8a8b8]">
+        <p className="text-text-secondary">
           {searchQuery ? "Aucun résultat." : "Aucune intervention pour le moment."}
         </p>
       )}
@@ -39,36 +39,44 @@ export default function HomePage() {
             onClick={() => selectIntervention(inter)}
             className="
               p-4 rounded-xl cursor-pointer
-              bg-[rgba(37,37,65,0.6)]
-              backdrop-blur-xl
-              border border-[rgba(255,255,255,0.1)]
-              shadow-[0_0_15px_rgba(0,0,0,0.25)]
-              hover:bg-[rgba(45,45,74,0.6)]
-              transition
+              
+              bg-surface-base
+              border border-border-base
+
+              shadow-sm 
+              hover:shadow-lg 
+              
+              hover:-translate-y-3 transform 
+              
+              hover:bg-surface-hover
+              
+              transition-all duration-200 ease-out 
+              
+              backdrop-blur-xl [html.theme-dark_&]:backdrop-blur-none
             "
           >
-            {/* Titre + code */}
-            <div className="font-semibold mb-1">
+            {/* Titre */}
+            <div className="font-semibold mb-1 text-text-primary">
               {inter.ticketCode} — {inter.title}
             </div>
 
             {/* Description */}
-            <p className="text-[#a8a8b8] text-sm">
+            <p className="text-text-secondary text-sm">
               {inter.description || "Aucune description"}
             </p>
 
             {/* Date */}
-            <p className="text-[#8888aa] text-xs mt-2">
+            <p className="text-text-tertiary text-xs mt-2">
               Créée le : {new Date(inter.date).toLocaleDateString("fr-FR")}
             </p>
 
             {/* Statut */}
             {inter.resolvedAt ? (
-              <p className="text-green-400 text-xs mt-1">
+              <p className="text-accent-success text-xs mt-1">
                 Résolue le : {new Date(inter.resolvedAt).toLocaleDateString("fr-FR")}
               </p>
             ) : (
-              <p className="text-yellow-400 text-xs mt-1">
+              <p className="text-accent-warning text-xs mt-1">
                 En cours
               </p>
             )}

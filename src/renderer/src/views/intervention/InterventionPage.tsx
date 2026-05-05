@@ -5,7 +5,17 @@ export default function InterventionPage({ intervention }) {
         Ticket {intervention.ticketCode}
       </h1>
 
-      <div className="p-6 rounded-xl bg-[rgba(37,37,65,0.6)] border border-white/10">
+      <div className="
+        p-4 rounded-xl cursor-pointer
+              
+        bg-surface-base
+        border border-border-base
+
+        hover:bg-surface-hover
+              
+        transition-all duration-200 ease-out 
+              
+        backdrop-blur-xl [html.theme-dark_&]:backdrop-blur-none">
         <p><strong>Titre :</strong> {intervention.title}</p>
 
         <p className="mt-2 opacity-80">

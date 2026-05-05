@@ -14,7 +14,6 @@ export default function MainView() {
 
   const { loadInterventions, selectedIntervention } = useInterventionStore()
 
-  // Charger les interventions quand un site est sélectionné
   useEffect(() => {
     if (selectedSite) {
       loadInterventions()
@@ -25,56 +24,57 @@ export default function MainView() {
     <main
       className="
         flex-1 p-6
-        text-[#f5f5f7]
+        text-text-primary
+        bg-bg-primary
         overflow-y-auto
       "
     >
-      {/* PAGE : CRÉER UNE ENTRÉE */}
+      {/* PAGE : CRÉER */}
       {activeView === "create" && <CreateEntryPage key={activeView} />}
 
       {/* PAGE : GÉRER */}
       {activeView === "manage" && (
         <div>
-          <h1 className="text-2xl font-semibold mb-4">Gérer les entrées</h1>
-          <p className="text-[#a8a8b8]">
+          <h1 className="text-2xl font-semibold mb-4">
+            Gérer les entrées
+          </h1>
+          <p className="text-text-secondary">
             Gestion des franchises, sites et interventions.
           </p>
         </div>
       )}
 
-      {/* PAGE : ACCUEIL */}
+      {/* PAGE : HOME */}
       {activeView === "home" && (
         <>
-          {/* Intervention sélectionnée */}
           {selectedIntervention && (
             <InterventionPage intervention={selectedIntervention} />
           )}
 
-          {/* Aucune franchise sélectionnée */}
           {!selectedFranchise && !selectedIntervention && <HomePage />}
 
-          {/* Franchise sélectionnée mais pas de site */}
           {selectedFranchise && !selectedSite && !selectedIntervention && (
             <div
               className="
                 p-6 rounded-xl
-                bg-[rgba(37,37,65,0.6)]
+
+                bg-surface-base
+                border border-border-base
+
                 backdrop-blur-xl
-                border border-[rgba(255,255,255,0.1)]
-                shadow-[0_0_20px_rgba(0,0,0,0.3)]
+                [html.theme-dark_&]:backdrop-blur-none
               "
             >
               <h1 className="text-2xl font-semibold mb-2">
                 Franchise : {selectedFranchise.name}
               </h1>
 
-              <p className="text-[#a8a8b8]">
-                Sélectionnez un site dans la sidebar pour afficher les sites et leurs interventions.
+              <p className="text-text-secondary">
+                Sélectionnez un site dans la sidebar pour afficher les interventions.
               </p>
             </div>
           )}
 
-          {/* Site sélectionné */}
           {selectedSite && !selectedIntervention && (
             <SitePage site={selectedSite} franchise={selectedFranchise} />
           )}

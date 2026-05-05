@@ -2,11 +2,10 @@
 ///////////////////////////////////////
 UI/ CSS/ STYLES :
 ///////////////////////////////////////
-- Bloquer la taille minimale et maximale de l'UI
-- Mode jour/nuit, thème ?
+- Bloquer la taille minimale et maximale de l'UI (4) 
+- Mode jour/nuit, thème ? (4-5)
 - Refactor de la MainView - HomePage, affichage des "Dernières interventions" dans un trail (carousel) horizontal + Affichage d'un bloc en dessous affichant d'autres informations (à définir) --> limiter le nombre d'interventions visibles dans le carousel (10-20 max)
 - Chercher des composants plus esthétiques (barre scrollable)
-- Refactor de la Page Franchise qui n'affiche rien et pourrait un bloc informatif fixe
 
 ///////////////////////////////////////
 ///////////////////////////////////////

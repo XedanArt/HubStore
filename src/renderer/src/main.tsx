@@ -1,3 +1,6 @@
+const savedTheme = localStorage.getItem("theme") || "light"
+document.documentElement.classList.add(`theme-${savedTheme}`)
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "../index.css";

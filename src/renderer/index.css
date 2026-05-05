@@ -1,38 +1,41 @@
 @import "tailwindcss";
 
-/* --- classes globales réutilisables --- */
+/* =========================
+   THEME LIGHT
+========================= */
+html.theme-light {
+  --bg-primary: #f6f4ef;        /* fond global crème */
+  --bg-secondary: #f1eee8;
+  --bg-tertiary: #e7e3dc;
 
-/* THEME JOUR (ton thème actuel) */
-.theme-light {
-  --bg-primary: #0f0f1e;
-  --bg-secondary: #1a1a2e;
-  --bg-tertiary: #16213e;
+  --surface-base: #fffdf9;      /* cartes légèrement chaudes */
+  --surface-hover: #f3efe7;
+  --surface-active: #e9e4da;
+  --surface-light: #f8f5ef;
 
-  --surface-base: #252541;
-  --surface-hover: #2d2d4a;
-  --surface-active: #353560;
-  --surface-light: #3a3a5c;
+  --text-primary: #1f2937;      /* gris chaud */
+  --text-secondary: #6b7280;
+  --text-tertiary: #9ca3af;
 
-  --text-primary: #f5f5f7;
-  --text-secondary: #a8a8b8;
-  --text-tertiary: #888899;
+  --border-base: #e5e1d8;
+  --border-light: #d6d1c7;
 
-  --border-base: #3a3a5c;
-  --border-light: #4a4a6a;
+  --accent-primary: #8b8a88;   /* bleu vif pour les accents */
 
-  --accent-primary: #8b5cf6;
 }
 
-/* THEME NUIT (style Discord) */
-.theme-dark {
+/* =========================
+   THEME DARK
+========================= */
+html.theme-dark {
   --bg-primary: #1e1f22;
   --bg-secondary: #2b2d31;
-  --bg-tertiary: #3a3c42;
+  --bg-tertiary: #313338;
 
   --surface-base: #2b2d31;
-  --surface-hover: #3a3c42;
-  --surface-active: #4b4d53;
-  --surface-light: #3f4147;
+  --surface-hover: #35373c;
+  --surface-active: #3f4147;
+  --surface-light: #3a3c42;
 
   --text-primary: #f2f3f5;
   --text-secondary: #b5bac1;
@@ -40,40 +43,109 @@
 
   --border-base: #3f4147;
   --border-light: #4b4d53;
-
-  --accent-primary: #5865f2; /* bleu Discord */
 }
 
-/* --- tes classes utilitaires existantes --- */
+/* =========================
+   TRANSITION THÈME
+========================= */
+.theme-transition * {
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* =========================
+   BASE GLOBAL
+========================= */
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* =========================
+   COMPONENTS
+========================= */
 
 .input {
-  @apply w-full px-3 py-2 rounded-lg
-         bg-[rgba(37,37,65,0.6)]
-         border border-[rgba(255,255,255,0.1)]
-         text-[#f5f5f7] placeholder-[#a8a8b8]
-         focus:outline-none focus:border-[#8b5cf6]
-         focus:ring-1 focus:ring-[#8b5cf6]/50;
+  @apply w-full px-3 py-2 rounded-lg transition;
+
+  background: var(--surface-base);
+  color: var(--text-primary);
+  border: 1px solid var(--border-base);
+}
+
+.input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 1px var(--accent-primary);
 }
 
 .btn-primary {
-  @apply px-4 py-2 rounded-lg
-         bg-[#8b5cf6] text-white
-         hover:bg-[#7c4ae0]
-         transition;
+  @apply px-4 py-2 rounded-lg font-medium transition-all duration-200;
+
+  background: var(--accent-primary);
+  color: white;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary:hover {
+  filter: brightness(0.95);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn-secondary {
-  @apply px-4 py-2 rounded-lg
-         bg-[rgba(37,37,65,0.6)]
-         border border-[rgba(255,255,255,0.1)]
-         text-[#f5f5f7]
-         hover:bg-[rgba(45,45,74,0.6)]
-         transition;
+  @apply px-4 py-2 rounded-lg transition;
+
+  background: var(--surface-base);
+  color: var(--text-primary);
+  border: 1px solid var(--border-base);
+}
+
+.btn-secondary:hover {
+  background: var(--surface-hover);
 }
 
 .btn-ghost {
-  @apply px-2 py-1 rounded
-         text-[#f5f5f7]
-         hover:text-[#8b5cf6]
-         transition;
+  @apply px-2 py-1 rounded transition;
+
+  color: var(--text-primary);
+}
+
+.btn-ghost:hover {
+  color: var(--accent-primary);
+}
+
+/* SCROLLBAR GLOBAL */
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* TRACK */
+*::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+/* THUMB */
+*::-webkit-scrollbar-thumb {
+  background: var(--border-base);
+  border-radius: 999px;
+  border: 2px solid var(--bg-secondary);
+}
+
+/* HOVER */
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
 }

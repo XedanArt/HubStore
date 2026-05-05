@@ -6,14 +6,14 @@ export default function AppLayout() {
   return (
     <div className="relative w-full h-screen overflow-hidden">
 
-      {/* Background image */}
+      {/* Background image - Conflit thème */}
       <div
         className="
           absolute inset-0
           bg-cover bg-center bg-no-repeat
           -z-50
         "
-        style={{ backgroundImage: "url('/background.png')" }}
+        // style={{ backgroundImage: "url('/background.png')" }}
       />
 
       {/* App content */}
@@ -23,7 +23,7 @@ export default function AppLayout() {
         <Header />
 
         {/* Sidebar + MainView */}
-        <div className="flex flex-1 min-h-0">  {/* ← LA LIGNE QUI RÈGLE TOUT */}
+        <div className="flex flex-1 min-h-0">
           <Sidebar />
           <MainView />
         </div>
