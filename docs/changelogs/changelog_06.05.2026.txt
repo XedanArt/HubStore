@@ -1,0 +1,23 @@
+Système d'authentification :
+- Installation de bcrypt => npm install bcrypt (hash)
+ - ne fonctionne pas alors installation en js : npm install bcryptjs
+- Préparation à la création du système d'authentification
+- Création d'une table User ajout colonne role : ADMIN/USER dans schema
+  -> migration
+- Création du seed (script)
+- Lancement du seed : npx ts-node scripts/seed.ts => console.log OK
+- Création du ipc auth.ts => expose via ipc dans le dbhandlers.ts
+- Création du auth.store.ts
+- Blocage de l'App si pas connecté dans App.tsx
+- Création d'un script de création d'User => node scripts/createUser.mjs
+- Sécurisation minimale
+- Création de la page ManageUsersPage
+- Suppression avatar Header => Création avatar design au dessus du bouton Franchises
+- Refonte Menu Toggle Avatar sur Sidebar, uniformisation du style, idem ligh-dark mode
+
+- Suppression des boutons "Gérer les utilisateurs" et "Remote Query"
+  - suppression des pages query/RemoteQueryPage et users/ManageUsersPage
+  - transformation en Dashboard
+  - mise en place future du Dashboard
+
+- Ajout loadInterventions pour éviter d'avoir à reset l'App après création d'une intervention

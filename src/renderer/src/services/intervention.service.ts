@@ -7,5 +7,6 @@ export const InterventionService = {
     siteId: number
     date: string
     resolvedAt?: string | null
+    createdById?: number
   }) => window.api.db.createIntervention(data)
 }

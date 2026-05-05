@@ -1,10 +1,13 @@
 import { useState } from "react"
 import { useFranchiseStore } from "../../store/franchise.store"
+import { useAuthStore } from "../../store/auth.store"
 import { InterventionService } from "../../services/intervention.service"
+import { useInterventionStore } from "../../store/intervention.store"
 
 function CreateInterventionForm({ onBack }) {
   const { franchises, loadFranchises } = useFranchiseStore()
-
+  const user = useAuthStore(s => s.user)
+  const loadInterventions = useInterventionStore(s => s.loadInterventions)
   const [franchiseId, setFranchiseId] = useState("")
   const [siteId, setSiteId] = useState("")
   const [object, setObject] = useState("")
@@ -19,16 +22,19 @@ function CreateInterventionForm({ onBack }) {
     if (!siteId) return alert("Le site est obligatoire.")
     if (!object.trim()) return alert("L'objet est obligatoire.")
     if (!dateStart) return alert("La date d'intervention est obligatoire.")
+    if (!user) return alert("Utilisateur non connecté.")
 
     await InterventionService.create({
       title: object,
       description,
       siteId: Number(siteId),
       date: new Date(dateStart).toISOString(),
-      resolvedAt: dateEnd ? new Date(dateEnd).toISOString() : null
+      resolvedAt: dateEnd ? new Date(dateEnd).toISOString() : null,
+      createdById: user.id
     })
 
     await loadFranchises()
+    await loadInterventions()
     onBack()
   }
 

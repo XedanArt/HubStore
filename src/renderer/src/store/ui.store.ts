@@ -4,8 +4,7 @@ export type View =
   | "home"
   | "create"
   | "manage"
-  | "users"
-  | "query"
+  | "dashboard"
 
 interface UIState {
   activeView: View

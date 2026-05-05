@@ -1,24 +1,24 @@
 import { contextBridge, ipcRenderer } from "electron"
 
-type IpcResponse<T> = {
+// ========================
+// TYPES
+// ========================
+export type IpcResponse<T> = {
   success: boolean
   data?: T
   error?: string
 }
 
+// ========================
+// DATABASE API
+// ========================
 const databaseApi = {
-  // ========================
-  // FRANCHISES
-  // ========================
   getFranchises: (): Promise<IpcResponse<any[]>> =>
     ipcRenderer.invoke("franchise:getAll"),
 
   createFranchise: (data: { name: string }): Promise<IpcResponse<any>> =>
     ipcRenderer.invoke("franchise:create", data),
 
-  // ========================
-  // SITES
-  // ========================
   getSites: (): Promise<any[]> =>
     ipcRenderer.invoke("db:getSites"),
 
@@ -30,9 +30,6 @@ const databaseApi = {
   }): Promise<any> =>
     ipcRenderer.invoke("db:createSite", data),
 
-  // ========================
-  // INTERVENTIONS
-  // ========================
   getInterventions: (): Promise<any[]> =>
     ipcRenderer.invoke("db:getInterventions"),
 
@@ -40,14 +37,50 @@ const databaseApi = {
     ipcRenderer.invoke("db:createIntervention", data),
 }
 
+// ========================
+// AUTH API
+// ========================
+const authApi = {
+  login: (data: { username: string; password: string }): Promise<IpcResponse<any>> =>
+    ipcRenderer.invoke("auth:login", data),
+}
+
+// ========================
+// USERS API
+// ========================
+const userApi = {
+  getUsers: (): Promise<IpcResponse<any[]>> =>
+    ipcRenderer.invoke("user:getAll"),
+
+  createUser: (data: {
+    username: string
+    password: string
+    role: "ADMIN" | "USER"
+  }): Promise<IpcResponse<any>> =>
+    ipcRenderer.invoke("user:create", data),
+
+  deleteUser: (id: number): Promise<IpcResponse<void>> =>
+    ipcRenderer.invoke("user:delete", id),
+}
+
+// ========================
+// EXPOSE API
+// ========================
 contextBridge.exposeInMainWorld("api", {
   db: databaseApi,
+  auth: authApi,
+  user: userApi,
 })
 
+// ========================
+// GLOBAL TYPES
+// ========================
 declare global {
   interface Window {
     api: {
       db: typeof databaseApi
+      auth: typeof authApi
+      user: typeof userApi
     }
   }
 }

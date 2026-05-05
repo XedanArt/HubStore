@@ -12,7 +12,7 @@ type Site = {
 type Franchise = {
   id: number
   name: string
-  code: string        // <-- AJOUT IMPORTANT
+  code: string        
   sites: Site[]
 }
 

@@ -13,6 +13,10 @@ declare global {
         getInterventions: () => Promise<any>
         createIntervention: (payload: any) => Promise<any>
       }
+
+      auth: {
+        login: (payload: { username: string; password: string }) => Promise<any>
+      }
     }
   }
 }

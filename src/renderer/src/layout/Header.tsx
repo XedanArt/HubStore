@@ -138,19 +138,6 @@ export default function Header() {
           />
         )}
       </button>
-
-      {/* Avatar */}
-      <div
-        className="
-          w-8 h-8 rounded-full
-          bg-surface-hover
-
-          shadow-sm 
-          hover:shadow-lg 
-          hover:-translate-y-1 transform 
-          transition
-        "
-      />
     </header>
   )
 }

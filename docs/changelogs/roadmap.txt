@@ -20,9 +20,6 @@ SIDEBAR
 - Création d'un bloc "Documentation"
   --> création d'une visionneuse de PDF intégrée
 
-FRANCHISES :
-- Refactor de la Page Franchise qui n'affiche rien et pourrait afficher un bloc informatif fixe
-
 SITES :
 - Ajout d'un bloc "Parc informatique" au dessus de la liste des interventions --> implique un champ parc informatique détaillé dans le formulaire de création de site
 

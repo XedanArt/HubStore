@@ -1,7 +1,109 @@
 import { ipcMain } from "electron"
 import { prisma } from "../database.js"
+import { login } from "./auth.js"
 
 export function registerDbHandlers() {
+
+  // ========================
+  // AUTH
+  // ========================
+  ipcMain.handle("auth:login", async (_event, { username, password }) => {
+    try {
+      const user = await login(username, password)
+
+      if (!user) {
+        return { success: false, error: "Identifiants incorrects" }
+      }
+
+      return { success: true, data: user }
+
+    } catch (error) {
+      return { success: false, error: String(error) }
+    }
+  })
+
+  // ========================
+  // USERS
+  // ========================
+  ipcMain.handle("user:getAll", async () => {
+    try {
+      const users = await prisma.user.findMany({
+        select: {
+          id: true,
+          username: true,
+          role: true
+        }
+      })
+
+      return { success: true, data: users }
+
+    } catch (error) {
+      return { success: false, error: String(error) }
+    }
+  })
+
+  ipcMain.handle("user:create", async (_event, { username, password, role }) => {
+    try {
+      const existing = await prisma.user.findUnique({
+        where: { username }
+      })
+
+      if (existing) {
+        return { success: false, error: "Utilisateur déjà existant" }
+      }
+
+      const bcrypt = await import("bcryptjs")
+      const hashedPassword = await bcrypt.hash(password, 10)
+
+      const user = await prisma.user.create({
+        data: {
+          username,
+          password: hashedPassword,
+          role
+        }
+      })
+
+      return { success: true, data: user }
+
+    } catch (error) {
+      return { success: false, error: String(error) }
+    }
+  })
+
+  ipcMain.handle("user:delete", async (_event, id: number) => {
+    try {
+      const user = await prisma.user.findUnique({
+        where: { id }
+      })
+
+      if (!user) {
+        return { success: false, error: "Utilisateur introuvable" }
+      }
+
+      // 🔒 empêcher suppression dernier admin
+      if (user.role === "ADMIN") {
+        const adminCount = await prisma.user.count({
+          where: { role: "ADMIN" }
+        })
+
+        if (adminCount <= 1) {
+          return {
+            success: false,
+            error: "Impossible de supprimer le dernier admin"
+          }
+        }
+      }
+
+      await prisma.user.delete({
+        where: { id }
+      })
+
+      return { success: true }
+
+    } catch (error) {
+      return { success: false, error: String(error) }
+    }
+  })
 
   // ========================
   // FRANCHISES
@@ -11,18 +113,22 @@ export function registerDbHandlers() {
       const data = await prisma.franchise.findMany({
         include: { sites: true }
       })
+
       return { success: true, data }
+
     } catch (error) {
       return { success: false, error: String(error) }
     }
   })
 
-  ipcMain.handle("franchise:create", async (_event, payload: { name: string, code: string }) => {
+  ipcMain.handle("franchise:create", async (_event, payload) => {
     try {
       const data = await prisma.franchise.create({
         data: payload
       })
+
       return { success: true, data }
+
     } catch (error) {
       return { success: false, error: String(error) }
     }
@@ -49,40 +155,61 @@ export function registerDbHandlers() {
       include: {
         site: {
           include: { franchise: true }
-        }
+        },
+        createdBy: true // 🔥 IMPORTANT
+      },
+      orderBy: {
+        date: "desc"
       }
     })
   })
 
   ipcMain.handle("db:createIntervention", async (_event, data) => {
-    const { siteId } = data
+    try {
+      const { siteId, createdById } = data
 
-    // 1) Récupérer le site + franchise
-    const site = await prisma.site.findUnique({
-      where: { id: siteId },
-      include: { franchise: true }
-    })
-
-    if (!site) throw new Error("Site introuvable")
-
-    // 2) Trouver le dernier ticket de la franchise
-    const last = await prisma.intervention.findFirst({
-      where: { site: { franchiseId: site.franchiseId } },
-      orderBy: { ticketNumber: "desc" }
-    })
-
-    const nextNumber = last ? last.ticketNumber + 1 : 1
-
-    // 3) Générer le code final (ex: MCD00001)
-    const ticketCode = `${site.franchise.code}${String(nextNumber).padStart(5, "0")}`
-
-    // 4) Créer l’intervention
-    return prisma.intervention.create({
-      data: {
-        ...data,
-        ticketNumber: nextNumber,
-        ticketCode
+      if (!siteId) {
+        throw new Error("Site manquant")
       }
-    })
+
+      const site = await prisma.site.findUnique({
+        where: { id: siteId },
+        include: { franchise: true }
+      })
+
+      if (!site) {
+        throw new Error("Site introuvable")
+      }
+
+      const last = await prisma.intervention.findFirst({
+        where: {
+          site: {
+            franchiseId: site.franchiseId
+          }
+        },
+        orderBy: {
+          ticketNumber: "desc"
+        }
+      })
+
+      const nextNumber = last ? last.ticketNumber + 1 : 1
+
+      const ticketCode = `${site.franchise.code}${String(nextNumber).padStart(5, "0")}`
+
+      const intervention = await prisma.intervention.create({
+        data: {
+          ...data,
+          createdById: createdById ?? null, // 🔥 compatible option 2
+          ticketNumber: nextNumber,
+          ticketCode
+        }
+      })
+
+      return intervention
+
+    } catch (error) {
+      console.error("CREATE INTERVENTION ERROR:", error)
+      throw error
+    }
   })
 }
