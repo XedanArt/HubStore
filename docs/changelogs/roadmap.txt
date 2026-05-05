@@ -2,8 +2,6 @@
 ///////////////////////////////////////
 UI/ CSS/ STYLES :
 ///////////////////////////////////////
-- Bloquer la taille minimale et maximale de l'UI (4) 
-- Mode jour/nuit, thème ? (4-5)
 - Refactor de la MainView - HomePage, affichage des "Dernières interventions" dans un trail (carousel) horizontal + Affichage d'un bloc en dessous affichant d'autres informations (à définir) --> limiter le nombre d'interventions visibles dans le carousel (10-20 max)
 - Chercher des composants plus esthétiques (barre scrollable)
 
@@ -37,7 +35,7 @@ FONCTIONNALITÉS MAJEURES :
 - Capslock automatique à la création d'une franchise (uniformisation des noms de franchises)
 - Permettre la gestion des entrées via clic droit ou un formulaire dédié (button) ?
 - Interdire les doublons (franchises, sites, interventions)
-
+- Ajout de règles de format, nombre de caractères, type de caractères, etc.
 - Rajout des fonctionnalités admin et user avant création du système d'authentification
   --> bloc query pour (admin)
   --> création et gestion des utilisateurs (admin)

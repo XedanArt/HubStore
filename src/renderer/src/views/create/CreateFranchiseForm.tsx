@@ -46,7 +46,7 @@ function CreateFranchiseForm({ onBack }) {
         
         <button 
           onClick={onBack} 
-          className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
+          className="btn-secondary"
         >
           ← Retour
         </button>

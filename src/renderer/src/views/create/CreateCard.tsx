@@ -1,9 +1,12 @@
 type CreateCardProps = {
   label: string
+  gender: "m" | "f"
   onClick: () => void
 }
 
-export default function CreateCard({ label, onClick }: CreateCardProps) {
+export default function CreateCard({ label, gender, onClick }: CreateCardProps) {
+  const article = gender === "f" ? "une nouvelle" : "un nouveau"
+
   return (
     <div
       onClick={onClick}
@@ -33,7 +36,7 @@ export default function CreateCard({ label, onClick }: CreateCardProps) {
       </h2>
 
       <p className="text-text-secondary">
-        Créer une nouvelle {label.toLowerCase()}.
+        Créer {article} {label.toLowerCase()}.
       </p>
     </div>
   )

@@ -2,21 +2,27 @@
 - Thème : ajout transition douce entre les deux thèmes
 - Refonte des cards HomePage (hover/shadow)
 - Améliorations Header : 
-  - Îcone Avatar
+  - Icone Avatar
   - Boutons (hover/shadow)
+  - Changement icons Home/Dark/Light/Create/Manage => svg, hover, transform, rotate
 - Améliorations Sidebar : 
   - Bouton principal (hover/shadow)
   - Listing sites (style arborescence)
   - Bouton "Créer une entrée"
   - Bouton "Gérer les entrées"
-  - View Franchise
-  - View Site
-  - View Intervention
-  - CreateEntryPage
-  - CreateCard
-  - CreateFranchiseForm
-  - CreateInterventionForm
-  - CreateSiteForm
+  - View Franchise : borders
+  - View Site : borders -> intervention cards
+  - View Intervention 
+  - CreateEntryPage : buttons
+    - correction bug gender f/s/i
+  - CreateCard : buttons
+  - CreateFranchiseForm : buttons
+  - CreateInterventionForm : buttons
+  - CreateSiteForm : buttons
 - Amélioration barre de scroll
 
-
+- Transformation des svg en composants tsx
+- Création bouton Gérer les utilisateurs
+- Création bouton Remote Query
+- Création page Gérer les utilisateurs
+- Création page Remote Query

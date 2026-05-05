@@ -64,7 +64,7 @@ function CreateSiteForm({ onBack }) {
       </div>
 
       <div className="flex justify-between mt-6">
-        <button onClick={onBack} className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">
+        <button onClick={onBack} className="btn-secondary">
           ← Retour
         </button>
 

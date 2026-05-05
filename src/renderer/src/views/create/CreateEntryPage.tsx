@@ -47,9 +47,23 @@ function CreateEntryPage() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <CreateCard label="Franchise" onClick={() => setSelectedForm("franchise")} />
-            <CreateCard label="Site" onClick={() => setSelectedForm("site")} />
-            <CreateCard label="Intervention" onClick={() => setSelectedForm("intervention")} />
+            <CreateCard
+              label="Franchise"
+              gender="f"
+              onClick={() => setSelectedForm("franchise")}
+            />
+
+            <CreateCard
+              label="Site"
+              gender="m"
+              onClick={() => setSelectedForm("site")}
+            />
+
+            <CreateCard
+              label="Intervention"
+              gender="f"
+              onClick={() => setSelectedForm("intervention")}
+            />
           </div>
         </>
       )}

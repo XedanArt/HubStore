@@ -8,6 +8,10 @@ import HomePage from "../views/home/HomePage"
 import SitePage from "../views/site/SitePage"
 import InterventionPage from "../views/intervention/InterventionPage"
 
+// 🆕 nouvelles pages
+import ManageUsersPage from "../views/users/ManageUsersPage"
+import RemoteQueryPage from "../views/query/RemoteQueryPage"
+
 export default function MainView() {
   const { selectedFranchise, selectedSite } = useFranchiseStore()
   const activeView = useUIStore(s => s.activeView)
@@ -29,10 +33,10 @@ export default function MainView() {
         overflow-y-auto
       "
     >
-      {/* PAGE : CRÉER */}
+      {/* CREATE */}
       {activeView === "create" && <CreateEntryPage key={activeView} />}
 
-      {/* PAGE : GÉRER */}
+      {/* MANAGE */}
       {activeView === "manage" && (
         <div>
           <h1 className="text-2xl font-semibold mb-4">
@@ -44,7 +48,13 @@ export default function MainView() {
         </div>
       )}
 
-      {/* PAGE : HOME */}
+      {/* 🆕 USERS */}
+      {activeView === "users" && <ManageUsersPage />}
+
+      {/* 🆕 QUERY */}
+      {activeView === "query" && <RemoteQueryPage />}
+
+      {/* HOME */}
       {activeView === "home" && (
         <>
           {selectedIntervention && (
@@ -57,10 +67,8 @@ export default function MainView() {
             <div
               className="
                 p-6 rounded-xl
-
                 bg-surface-base
                 border border-border-base
-
                 backdrop-blur-xl
                 [html.theme-dark_&]:backdrop-blur-none
               "

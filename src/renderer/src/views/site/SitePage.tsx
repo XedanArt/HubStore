@@ -6,36 +6,54 @@ export default function SitePage({ site, franchise }) {
   const siteInterventions = interventions.filter(i => i.siteId === site.id)
 
   return (
-    <div>
-      <h1 className="text-2xl font-semibold mb-4">
+    <div className="space-y-6">
+      {/* Header */}
+      <h1 className="text-2xl font-semibold text-text-primary">
         {franchise.name} — {site.name}
       </h1>
 
+      {/* Card principale */}
       <div
         className="
-              p-4 rounded-xl cursor-pointer
-              
-              bg-surface-base
-              border border-border-base
-              
-              hover:bg-surface-hover
-              
-              transition-all duration-200 ease-out 
-              
-              backdrop-blur-xl [html.theme-dark_&]:backdrop-blur-none
+          p-6 rounded-xl
+          
+          bg-surface-base
+          border border-border-base
+          
+          transition-all duration-200
+          
+          backdrop-blur-xl
+          [html.theme-dark_&]:backdrop-blur-none
         "
       >
-        <p><strong>Téléphone :</strong> {site.phone || "—"}</p>
-        <p><strong>Description :</strong> {site.description || "—"}</p>
+        {/* Infos site */}
+        <div className="space-y-1 text-text-secondary">
+          <p>
+            <span className="font-medium text-text-primary">Téléphone :</span>{" "}
+            {site.phone || "—"}
+          </p>
+          <p>
+            <span className="font-medium text-text-primary">Description :</span>{" "}
+            {site.description || "—"}
+          </p>
+        </div>
 
-        <hr className="my-4 border-white/10" />
+        {/* Separator */}
+        <hr className="my-4 border-border-base" />
 
-        <h2 className="text-xl font-semibold mb-2">Interventions</h2>
+        {/* Title */}
+        <h2 className="text-xl font-semibold mb-3 text-text-primary">
+          Interventions
+        </h2>
 
+        {/* Empty state */}
         {siteInterventions.length === 0 && (
-          <p className="opacity-60">Aucune intervention pour ce site.</p>
+          <p className="text-text-secondary">
+            Aucune intervention pour ce site.
+          </p>
         )}
 
+        {/* List */}
         <div className="space-y-3">
           {siteInterventions.map(inter => (
             <div
@@ -43,25 +61,42 @@ export default function SitePage({ site, franchise }) {
               onClick={() => selectIntervention(inter)}
               className="
                 p-4 rounded-lg cursor-pointer
-                bg-[rgba(255,255,255,0.05)]
-                border border-[rgba(255,255,255,0.1)]
-                hover:bg-[rgba(255,255,255,0.1)]
-                transition
+                
+                bg-surface-base
+                border border-border-base
+                
+                hover:bg-surface-hover
+                hover:shadow-md
+                hover:-translate-y-2
+                
+                transition-all duration-200 ease-out
               "
             >
-              <h3 className="font-semibold">
+              {/* Titre */}
+              <h3 className="font-semibold text-text-primary">
                 {inter.ticketCode} — {inter.title}
               </h3>
 
-              <p className="opacity-80">{inter.description || "—"}</p>
-
-              <p className="text-sm opacity-60 mt-2">
-                Créée le : {new Date(inter.date).toLocaleDateString("fr-FR")}
+              {/* Description */}
+              <p className="text-text-secondary text-sm">
+                {inter.description || "—"}
               </p>
 
-              {inter.resolvedAt && (
-                <p className="text-sm text-green-400">
-                  Résolue le : {new Date(inter.resolvedAt).toLocaleDateString("fr-FR")}
+              {/* Date */}
+              <p className="text-text-tertiary text-xs mt-2">
+                Créée le :{" "}
+                {new Date(inter.date).toLocaleDateString("fr-FR")}
+              </p>
+
+              {/* Statut */}
+              {inter.resolvedAt ? (
+                <p className="text-accent-success text-xs mt-1">
+                  Résolue le :{" "}
+                  {new Date(inter.resolvedAt).toLocaleDateString("fr-FR")}
+                </p>
+              ) : (
+                <p className="text-accent-warning text-xs mt-1">
+                  En cours
                 </p>
               )}
             </div>

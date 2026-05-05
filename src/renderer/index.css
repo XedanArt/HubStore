@@ -4,24 +4,31 @@
    THEME LIGHT
 ========================= */
 html.theme-light {
-  --bg-primary: #f6f4ef;        /* fond global crème */
-  --bg-secondary: #f1eee8;
-  --bg-tertiary: #e7e3dc;
+  /* Backgrounds */
+  --bg-primary: #f8f7f4;        /* crème très léger (presque blanc) */
+  --bg-secondary: #f3f2ef;
+  --bg-tertiary: #ecebe7;
 
-  --surface-base: #fffdf9;      /* cartes légèrement chaudes */
-  --surface-hover: #f3efe7;
-  --surface-active: #e9e4da;
-  --surface-light: #f8f5ef;
+  /* Surfaces */
+  --surface-base: #ffffff;      /* vrai blanc pour contraste propre */
+  --surface-hover: #f5f5f4;
+  --surface-active: #ecebe7;
+  --surface-light: #fafaf9;
 
-  --text-primary: #1f2937;      /* gris chaud */
+  /* Text */
+  --text-primary: #1f2937;      
   --text-secondary: #6b7280;
   --text-tertiary: #9ca3af;
 
-  --border-base: #e5e1d8;
-  --border-light: #d6d1c7;
+  /* Borders */
+  --border-base: #e4e4e7;       /* plus soft */
+  --border-light: #d4d4d8;
 
-  --accent-primary: #8b8a88;   /* bleu vif pour les accents */
-
+  /* Accents */
+  --accent-primary: #6366f1;
+  --accent-success: #16a34a;
+  --accent-warning: #d97706;
+  --accent-danger: #dc2626;
 }
 
 /* =========================
@@ -43,6 +50,11 @@ html.theme-dark {
 
   --border-base: #3f4147;
   --border-light: #4b4d53;
+
+  --accent-primary: #5865f2;   /* Discord blurple */
+  --accent-success: #22c55e;
+  --accent-warning: #f59e0b;
+  --accent-danger: #ef4444;
 }
 
 /* =========================
@@ -148,4 +160,8 @@ body {
 /* HOVER */
 *::-webkit-scrollbar-thumb:hover {
   background: var(--accent-primary);
+}
+
+.group:hover svg {
+  transform: scale(1.1);
 }

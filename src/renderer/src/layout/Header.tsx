@@ -3,6 +3,10 @@ import { useFranchiseStore } from "../store/franchise.store"
 import { useInterventionStore } from "../store/intervention.store"
 import { useThemeStore } from "../store/theme.store"
 
+import HomeIcon from "../components/icons/HomeIcon"
+import MoonIcon from "../components/icons/MoonIcon"
+import SunIcon from "../components/icons/SunIcon"
+
 export default function Header() {
   const setPage = useUIStore(state => state.setPage)
   const resetSelection = useFranchiseStore(state => state.resetSelection)
@@ -34,6 +38,7 @@ export default function Header() {
           setPage("home")
         }}
         className="
+          group
           w-8 h-8 flex items-center justify-center
           rounded-lg
 
@@ -42,14 +47,22 @@ export default function Header() {
 
           shadow-sm 
           hover:shadow-lg 
-              
           hover:-translate-y-1 transform 
-          
+
           hover:bg-surface-hover
           transition
         "
       >
-        🏠
+        <HomeIcon
+          className="
+            w-5 h-5
+            text-text-secondary
+            transition-all duration-200
+            group-hover:text-accent-primary
+            group-hover:rotate-6
+            group-hover:scale-125
+          "
+        />
       </button>
 
       {/* Titre */}
@@ -86,6 +99,7 @@ export default function Header() {
       <button
         onClick={toggleTheme}
         className="
+          group
           w-8 h-8 flex items-center justify-center
           rounded-lg
 
@@ -94,26 +108,47 @@ export default function Header() {
 
           shadow-sm 
           hover:shadow-lg 
-              
           hover:-translate-y-1 transform 
 
           hover:bg-surface-hover
           transition
         "
       >
-        {theme === "light" ? "🌙" : "☀️"}
+        {theme === "light" ? (
+          <MoonIcon
+            className="
+              w-5 h-5
+              text-text-secondary
+              transition-all duration-200
+              group-hover:text-accent-primary
+              group-hover:rotate-6
+              group-hover:scale-125
+            "
+          />
+        ) : (
+          <SunIcon
+            className="
+              w-5 h-5
+              text-text-secondary
+              transition-all duration-200
+              group-hover:text-accent-primary
+              group-hover:rotate-6
+              group-hover:scale-125
+            "
+          />
+        )}
       </button>
 
       {/* Avatar */}
       <div
         className="
           w-8 h-8 rounded-full
-          bg-amber-50
+          bg-surface-hover
 
           shadow-sm 
           hover:shadow-lg 
-              
           hover:-translate-y-1 transform 
+          transition
         "
       />
     </header>
