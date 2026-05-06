@@ -1,8 +1,8 @@
 {
   "name": "hubstore",
   "version": "1.0.0",
-  "description": "",
-  "main": "src/main/main.js",
+  "description": "HubStore Desktop App",
+  "main": "dist/main.js",
   "scripts": {
     "dev": "npm-run-all -p watch:main watch:ipc dev:preload dev:renderer dev:electron",
     "watch:main": "node scripts/build-main.mjs --watch",
@@ -14,9 +14,40 @@
     "build:renderer": "vite build --config src/renderer/vite.config.ts",
     "build:main": "node scripts/build-main.mjs",
     "build:preload": "node scripts/build-preload.mjs",
-    "build:ipc": "node scripts/build-ipc.mjs"
+    "build:ipc": "node scripts/build-ipc.mjs",
+    "dist": "npm run build && prisma generate && electron-builder"
   },
   "type": "module",
+  "build": {
+    "appId": "com.hubstore.app",
+    "productName": "HubStore",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "node_modules/.prisma/**/*",
+      "node_modules/@prisma/**/*",
+      "prisma/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "prisma/dev.db",
+        "to": "dev.db"
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "artifactName": "HubStore-Setup-${version}.exe"
+    },
+      "npmRebuild": false,
+    
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
   "devDependencies": {
     "@tailwindcss/cli": "^4.2.4",
     "@tailwindcss/postcss": "^4.2.4",
@@ -27,6 +58,7 @@
     "concurrently": "^9.2.1",
     "cross-env": "^10.1.0",
     "electron": "^41.3.0",
+    "electron-builder": "^26.8.1",
     "esbuild": "^0.28.0",
     "nodemon": "^3.1.14",
     "npm-run-all": "^4.1.5",
@@ -39,7 +71,6 @@
   "dependencies": {
     "@prisma/client": "^5.14.0",
     "autoprefixer": "^10.5.0",
-    "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.3",
     "lucide-react": "^1.14.0",
     "prisma": "^5.14.0",

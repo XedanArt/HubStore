@@ -1,0 +1,25 @@
+Refonte du Dashboard + ajout du build binaire
+
+- Suppression du bouton "Gérer les entrées" dans la sidebar
+  → fonctionnalité déplacée dans le Dashboard admin
+
+- Mise à jour du Dashboard :
+  - "Franchises & Sites" renommé en "Gérer les entrées"
+  - "Utilisateurs" renommé en "Gérer les utilisateurs"
+  - centralisation des actions admin dans une seule page
+
+- Mise en place de la génération de binaire (Electron) :
+  - installation de electron-builder
+  - configuration du package.json (build, nsis, output)
+  - adaptation de database.ts pour utiliser un chemin compatible production (app.getPath)
+  - inclusion de la base Prisma (dev.db) via extraResources
+
+- Génération d’un installeur Windows (.exe)
+  → build effectué avec `npx electron-builder --win`
+
+- Résolution des problèmes rencontrés :
+  - suppression de bcrypt (node-gyp incompatible Electron) → utilisation de bcryptjs
+  - gestion des permissions Windows (symlinks) via lancement en mode administrateur
+  - correction des dépendances Prisma pour le packaging
+
+Résultat : application packagée et installable via un exécutable Windows

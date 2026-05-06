@@ -1,23 +1,43 @@
-Système d'authentification :
-- Installation de bcrypt => npm install bcrypt (hash)
- - ne fonctionne pas alors installation en js : npm install bcryptjs
-- Préparation à la création du système d'authentification
-- Création d'une table User ajout colonne role : ADMIN/USER dans schema
-  -> migration
-- Création du seed (script)
-- Lancement du seed : npx ts-node scripts/seed.ts => console.log OK
-- Création du ipc auth.ts => expose via ipc dans le dbhandlers.ts
-- Création du auth.store.ts
-- Blocage de l'App si pas connecté dans App.tsx
-- Création d'un script de création d'User => node scripts/createUser.mjs
-- Sécurisation minimale
-- Création de la page ManageUsersPage
-- Suppression avatar Header => Création avatar design au dessus du bouton Franchises
-- Refonte Menu Toggle Avatar sur Sidebar, uniformisation du style, idem ligh-dark mode
+feat(auth + dashboard + interventions): ajout du système d'authentification et refonte sidebar/dashboard
 
-- Suppression des boutons "Gérer les utilisateurs" et "Remote Query"
-  - suppression des pages query/RemoteQueryPage et users/ManageUsersPage
-  - transformation en Dashboard
-  - mise en place future du Dashboard
+Authentification
 
-- Ajout loadInterventions pour éviter d'avoir à reset l'App après création d'une intervention
+* Installation de bcryptjs pour le hash des mots de passe
+* Création du modèle User avec rôle ADMIN / USER
+* Ajout des migrations Prisma
+* Mise en place d’un script de seed
+* Création d’un script de création d’utilisateur (createUser.mjs)
+* Implémentation du handler IPC d’authentification
+* Création du store auth (auth.store.ts)
+* Blocage de l’application si utilisateur non authentifié
+
+Utilisateurs
+
+* Création initiale de la page ManageUsersPage (supprimée ensuite au profit du dashboard)
+* Mise en place d’une sécurisation minimale basée sur les rôles
+
+Interface utilisateur / Sidebar
+
+* Suppression de l’avatar dans le header
+* Ajout d’un avatar interactif dans la sidebar
+* Refonte du menu dropdown utilisateur
+* Uniformisation du style en light et dark mode
+* Amélioration des interactions et transitions
+
+Dashboard Admin
+
+* Suppression des pages ManageUsersPage et RemoteQueryPage
+* Suppression des boutons associés dans la sidebar
+* Remplacement par un accès unique vers un dashboard admin
+* Préparation de la structure pour les futures fonctionnalités
+
+Interventions
+
+* Ajout du champ createdBy (relation avec User)
+* Correction du flux de création d’intervention
+* Ajout de loadInterventions après création pour mise à jour automatique sans reload
+
+Divers
+
+* Nettoyage global du code
+* Amélioration de la cohérence entre stores, IPC et interface

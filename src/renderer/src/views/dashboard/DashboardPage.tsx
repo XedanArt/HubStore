@@ -5,12 +5,12 @@ export default function DashboardPage() {
 
   const cards = [
     {
-      title: "Utilisateurs",
+      title: "Gérer les utilisateurs",
       description: "Gérer les comptes utilisateurs",
       action: () => setPage("users"),
     },
     {
-      title: "Franchises & Sites",
+      title: "Gérer les entrées",
       description: "Administrer la structure",
       action: () => setPage("manage"),
     },
@@ -32,7 +32,7 @@ export default function DashboardPage() {
       {/* HEADER */}
       <div>
         <h1 className="text-2xl font-semibold">
-          Dashboard Admin
+          Dashboard
         </h1>
         <p className="text-text-secondary">
           Vue globale et outils d’administration

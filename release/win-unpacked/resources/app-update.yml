@@ -1,0 +1,4 @@
+owner: XedanArt
+repo: HubStore
+provider: github
+updaterCacheDirName: hubstore-updater

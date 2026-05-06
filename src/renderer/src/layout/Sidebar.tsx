@@ -339,14 +339,6 @@ export default function Sidebar() {
           Créer une entrée
         </button>
 
-        <button
-          onClick={() => setPage("manage")}
-          className={`${baseBtn} ${activeView === "manage" ? activeBtn : ""}`}
-        >
-          <ManageIcon className="w-4 h-4 text-text-secondary group-hover:text-accent-primary transition group-hover:rotate-12" />
-          Gérer les entrées
-        </button>
-
         {isAdmin && (
           <button
             onClick={() => setPage("dashboard")}
