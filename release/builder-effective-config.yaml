@@ -6,10 +6,12 @@ productName: HubStore
 files:
   - filter:
       - dist/**/*
-      - node_modules/.prisma/**/*
-      - node_modules/@prisma/**/*
-      - prisma/**/*
+      - node_modules/**/*
       - package.json
+asar: true
+asarUnpack:
+  - '**/.prisma/**/*'
+  - '**/@prisma/engines/**/*'
 extraResources:
   - from: prisma/dev.db
     to: dev.db
@@ -20,4 +22,4 @@ npmRebuild: false
 nsis:
   oneClick: false
   allowToChangeInstallationDirectory: true
-electronVersion: 41.4.0
+electronVersion: 41.5.0

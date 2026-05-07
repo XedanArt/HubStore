@@ -22,4 +22,4 @@ Refonte du Dashboard + ajout du build binaire
   - gestion des permissions Windows (symlinks) via lancement en mode administrateur
   - correction des dépendances Prisma pour le packaging
 
-Résultat : application packagée et installable via un exécutable Windows
+Résultat : application packagée et installable via un exécutable Windows (non - Gros bug d'architecture, à revoir)

@@ -3,11 +3,16 @@ import esbuild from "esbuild";
 const ctx = await esbuild.context({
   entryPoints: ["src/main/index.ts"],
   outfile: "dist/main.js",
-  bundle: false,        // ← CRITIQUE : pas de bundle
+  bundle: true, // ✅ IMPORTANT
   platform: "node",
   format: "esm",
-  sourcemap: true,
-  target: "node20",     // ← recommandé pour Electron 41
+  target: "node20",
+  external: [
+    "electron",
+    "@prisma/client",
+    "bcryptjs"
+  ],
+  sourcemap: false
 });
 
 if (process.argv.includes("--watch")) {

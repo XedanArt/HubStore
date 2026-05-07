@@ -8,6 +8,7 @@ const ctx = await esbuild.context({
   format: "esm",
   external: ["electron", "@prisma/client", "prisma"],
   sourcemap: true,
+  target: "node20"
 });
 
 if (process.argv.includes("--watch")) {

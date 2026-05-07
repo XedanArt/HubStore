@@ -1,0 +1,2 @@
+- Repassage en mode dev => changement des config. prod
+  - impossible de lancer l'appli en prod via le setup ou l'exe

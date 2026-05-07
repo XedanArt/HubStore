@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "HubStore Desktop App",
   "main": "dist/main.js",
+  "type": "module",
+
   "scripts": {
     "dev": "npm-run-all -p watch:main watch:ipc dev:preload dev:renderer dev:electron",
     "watch:main": "node scripts/build-main.mjs --watch",
@@ -10,44 +12,60 @@
     "dev:preload": "node scripts/build-preload.mjs --watch",
     "dev:renderer": "vite --config src/renderer/vite.config.ts",
     "dev:electron": "wait-on tcp:5173 && cross-env VITE_DEV_SERVER_URL=http://localhost:5173 electron dist/main.js",
+
     "build": "npm run build:renderer && npm run build:main && npm run build:preload && npm run build:ipc",
     "build:renderer": "vite build --config src/renderer/vite.config.ts",
     "build:main": "node scripts/build-main.mjs",
     "build:preload": "node scripts/build-preload.mjs",
     "build:ipc": "node scripts/build-ipc.mjs",
-    "dist": "npm run build && prisma generate && electron-builder"
+
+    "dist": "prisma generate && npm run build && electron-builder",
+    "create-admin": "node scripts/createAdmin.mjs",
+    "postinstall": "prisma generate"
+    
   },
-  "type": "module",
+
   "build": {
     "appId": "com.hubstore.app",
     "productName": "HubStore",
+
     "directories": {
       "output": "release"
     },
+
     "files": [
       "dist/**/*",
-      "node_modules/.prisma/**/*",
-      "node_modules/@prisma/**/*",
-      "prisma/**/*",
+      "node_modules/**/*",
       "package.json"
     ],
+
+    "asar": true,
+
+    "asarUnpack": [
+      "**/.prisma/**/*",
+      "**/@prisma/engines/**/*"
+    ],
+
     "extraResources": [
       {
         "from": "prisma/dev.db",
         "to": "dev.db"
       }
     ],
+
     "win": {
       "target": "nsis",
       "artifactName": "HubStore-Setup-${version}.exe"
     },
-      "npmRebuild": false,
-    
+
+    "npmRebuild": false,
+
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true
     }
   },
+
   "devDependencies": {
     "@tailwindcss/cli": "^4.2.4",
     "@tailwindcss/postcss": "^4.2.4",
@@ -68,6 +86,7 @@
     "vite": "^8.0.10",
     "wait-on": "^9.0.5"
   },
+
   "dependencies": {
     "@prisma/client": "^5.14.0",
     "autoprefixer": "^10.5.0",

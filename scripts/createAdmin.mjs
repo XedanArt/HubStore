@@ -1,9 +1,45 @@
 import { PrismaClient } from "@prisma/client"
 import bcrypt from "bcryptjs"
+import path from "path"
+import os from "os"
+import fs from "fs"
 
-const prisma = new PrismaClient()
+// ========================
+// ENV (DEV vs PROD)
+// ========================
+const isProd = process.env.NODE_ENV === "production"
 
+// DEV → prisma/dev.db
+// PROD → AppData
+const dbPath = isProd
+  ? path.join(os.homedir(), "AppData", "Roaming", "HubStore", "dev.db")
+  : path.join(process.cwd(), "prisma", "dev.db")
+
+// ========================
+// CREATE DIR SI NÉCESSAIRE
+// ========================
+const dir = path.dirname(dbPath)
+if (!fs.existsSync(dir)) {
+  fs.mkdirSync(dir, { recursive: true })
+}
+
+// ========================
+// PRISMA
+// ========================
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: `file:${dbPath}`
+    }
+  }
+})
+
+// ========================
+// SCRIPT
+// ========================
 async function main() {
+  console.log("📁 DB utilisée :", dbPath)
+
   const username = "admin"
   const password = "admin123"
 
@@ -30,5 +66,9 @@ async function main() {
 }
 
 main()
-  .catch(console.error)
-  .finally(() => prisma.$disconnect())
+  .catch((err) => {
+    console.error("❌ Erreur :", err)
+  })
+  .finally(async () => {
+    await prisma.$disconnect()
+  })

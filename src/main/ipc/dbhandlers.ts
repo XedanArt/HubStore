@@ -1,6 +1,6 @@
 import { ipcMain } from "electron"
-import { prisma } from "../database.js"
-import { login } from "./auth.js"
+import { getPrisma } from "../database"
+import { login } from "./auth"
 
 export function registerDbHandlers() {
 
@@ -27,6 +27,8 @@ export function registerDbHandlers() {
   // ========================
   ipcMain.handle("user:getAll", async () => {
     try {
+      const prisma = getPrisma()
+
       const users = await prisma.user.findMany({
         select: {
           id: true,
@@ -44,6 +46,8 @@ export function registerDbHandlers() {
 
   ipcMain.handle("user:create", async (_event, { username, password, role }) => {
     try {
+      const prisma = getPrisma()
+
       const existing = await prisma.user.findUnique({
         where: { username }
       })
@@ -72,6 +76,8 @@ export function registerDbHandlers() {
 
   ipcMain.handle("user:delete", async (_event, id: number) => {
     try {
+      const prisma = getPrisma()
+
       const user = await prisma.user.findUnique({
         where: { id }
       })
@@ -80,7 +86,6 @@ export function registerDbHandlers() {
         return { success: false, error: "Utilisateur introuvable" }
       }
 
-      // 🔒 empêcher suppression dernier admin
       if (user.role === "ADMIN") {
         const adminCount = await prisma.user.count({
           where: { role: "ADMIN" }
@@ -110,6 +115,8 @@ export function registerDbHandlers() {
   // ========================
   ipcMain.handle("franchise:getAll", async () => {
     try {
+      const prisma = getPrisma()
+
       const data = await prisma.franchise.findMany({
         include: { sites: true }
       })
@@ -123,6 +130,8 @@ export function registerDbHandlers() {
 
   ipcMain.handle("franchise:create", async (_event, payload) => {
     try {
+      const prisma = getPrisma()
+
       const data = await prisma.franchise.create({
         data: payload
       })
@@ -138,12 +147,15 @@ export function registerDbHandlers() {
   // SITES
   // ========================
   ipcMain.handle("db:getSites", async () => {
+    const prisma = getPrisma()
+
     return prisma.site.findMany({
       include: { franchise: true }
     })
   })
 
   ipcMain.handle("db:createSite", async (_event, data) => {
+    const prisma = getPrisma()
     return prisma.site.create({ data })
   })
 
@@ -151,12 +163,14 @@ export function registerDbHandlers() {
   // INTERVENTIONS
   // ========================
   ipcMain.handle("db:getInterventions", async () => {
+    const prisma = getPrisma()
+
     return prisma.intervention.findMany({
       include: {
         site: {
           include: { franchise: true }
         },
-        createdBy: true // 🔥 IMPORTANT
+        createdBy: true
       },
       orderBy: {
         date: "desc"
@@ -166,6 +180,8 @@ export function registerDbHandlers() {
 
   ipcMain.handle("db:createIntervention", async (_event, data) => {
     try {
+      const prisma = getPrisma()
+
       const { siteId, createdById } = data
 
       if (!siteId) {
@@ -199,7 +215,7 @@ export function registerDbHandlers() {
       const intervention = await prisma.intervention.create({
         data: {
           ...data,
-          createdById: createdById ?? null, // 🔥 compatible option 2
+          createdById: createdById ?? null,
           ticketNumber: nextNumber,
           ticketCode
         }

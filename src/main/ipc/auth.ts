@@ -1,7 +1,11 @@
 import bcrypt from "bcryptjs"
-import { prisma } from "../database"
+import { getPrisma } from "../database"
 
 export async function login(username: string, password: string) {
+  const prisma = getPrisma()
+
+  if (!prisma) throw new Error("Prisma non initialisé")
+
   const user = await prisma.user.findUnique({
     where: { username }
   })
