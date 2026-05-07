@@ -10,8 +10,8 @@ export default function DashboardPage() {
       action: () => setPage("users"),
     },
     {
-      title: "Gérer les entrées",
-      description: "Administrer la structure",
+      title: "Franchises & Sites",
+      description: "Intéragir avec les entrées",
       action: () => setPage("manage"),
     },
     {

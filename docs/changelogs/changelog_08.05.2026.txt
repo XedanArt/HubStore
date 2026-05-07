@@ -3,3 +3,8 @@
 
 - Création d'un DotEnv à la racine pour fixer le chemin de la BDD
   - modification du schema.prisma en conséquence (DATABASE_URL)
+
+- Réparation dbhandlers, auth.ts, etc.
+- Environnement de dev remis en état
+- Reprise de l'UI
+- Ajout d'un bouton refresh (logique à mettre en place)

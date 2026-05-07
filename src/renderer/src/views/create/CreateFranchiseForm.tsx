@@ -20,7 +20,7 @@ function CreateFranchiseForm({ onBack }) {
   }
 
   return (
-    <div className="flex flex-col justify-between max-w-md h-full">
+    <div className="flex flex-col justify-between max-w-md min-h-400px">
       
       <div className="space-y-4">
         <h2 className="text-xl font-semibold text-text-primary">

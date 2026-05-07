@@ -9,11 +9,23 @@ import SunIcon from "../components/icons/SunIcon"
 
 export default function Header() {
   const setPage = useUIStore(state => state.setPage)
+
   const resetSelection = useFranchiseStore(state => state.resetSelection)
+  const loadFranchises = useFranchiseStore(state => state.loadFranchises)
+
   const resetIntervention = useInterventionStore(state => state.resetIntervention)
+  const loadInterventions = useInterventionStore(state => state.loadInterventions)
 
   const { setSearchQuery, searchQuery } = useInterventionStore()
   const { theme, toggleTheme } = useThemeStore()
+
+  // Refresh global : franchises + interventions
+  const refreshAll = async () => {
+    await Promise.all([
+      loadFranchises(),
+      loadInterventions(),
+    ])
+  }
 
   return (
     <header
@@ -94,6 +106,49 @@ export default function Header() {
           "
         />
       </div>
+
+      {/* Bouton Refresh global */}
+      <button
+        onClick={refreshAll}
+        className="
+          group
+          w-8 h-8 flex items-center justify-center
+          rounded-lg
+
+          bg-surface-base
+          border border-border-base
+
+          shadow-sm 
+          hover:shadow-lg 
+          hover:-translate-y-1 transform 
+
+          hover:bg-surface-hover
+          transition
+        "
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="
+            w-5 h-5
+            text-text-secondary
+            transition-all duration-200
+            group-hover:text-accent-primary
+            group-hover:rotate-180
+          "
+       >
+          <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+          <path d="M21 3v5h-5"/>
+          <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+          <path d="M8 16H3v5"/>
+        </svg>
+
+      </button>
 
       {/* Bouton thème */}
       <button

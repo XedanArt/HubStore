@@ -36,17 +36,20 @@ export const useFranchiseStore = create<FranchiseState>((set) => ({
   selectedSite: null,
 
   loadFranchises: async () => {
-    const res = await FranchiseService.getAll()
-    const data = res?.data || res || []
-    set({ franchises: data })
+  const res = await FranchiseService.getAll()
+  const data = res?.data || res || []
+  console.log("Franchises loaded:", data)
+  set({ franchises: [...data] })
   },
 
+
   createFranchise: async (payload) => {
-    await FranchiseService.create(payload)
-    const res = await FranchiseService.getAll()
-    const data = res?.data || res || []
-    set({ franchises: data })
+  await FranchiseService.create(payload)
+  const res = await FranchiseService.getAll()
+  const data = res?.data || res || []
+  set({ franchises: [...data] })
   },
+
 
   selectFranchise: (franchise) =>
     set({
