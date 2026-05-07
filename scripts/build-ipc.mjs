@@ -1,12 +1,15 @@
 import esbuild from "esbuild";
 
 const ctx = await esbuild.context({
-  entryPoints: ["src/main/ipc/dbhandlers.ts"],
-  outfile: "dist/ipc/dbhandlers.js",
+  entryPoints: [
+    "src/main/ipc/dbhandlers.ts",
+    "src/main/ipc/auth.ts"
+  ],
+  outdir: "dist/ipc",
   bundle: true,
   platform: "node",
   format: "esm",
-  external: ["electron", "@prisma/client", "prisma"],
+  external: ["electron", "@prisma/client", "bcryptjs"],
   sourcemap: true,
   target: "node20"
 });

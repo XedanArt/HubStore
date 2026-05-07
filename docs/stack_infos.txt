@@ -1,15 +1,48 @@
 ////////// STACK DU PROJET //////////
-Electron : npx electron --version ---> v41.3.0
+Electron : npx electron --version ---> v41.5.0
 Vite : npm list vite ---> vite@8.0.10
-React : npm list react react-dom ---> react@19.2.5
+React : npm list react react-dom ---> react@19.2.6
 Lucide-react : 11.12.1
 TailwindCSS : npm list tailwindcss ---> tailwindcss@4.2.4
-Zustand : npm list zustand ---> 11.12.1
-Prisma : npx prisma -v ---> 5.14.0
+Zustand : npm list zustand ---> zustand@5.0.13
+Prisma : npx prisma -v ---> 5.22.0
 TypeScript : npx tsc -v ---> Version 6.0.3
-Node.js : node -v ---> v24.15.0
-npm : npm -v ---> 11.12.1
-all : npm list --depth=0 
+Node.js : node -v ---> v20.20.2
+npm : npm -v ---> 10.8.2
 
+all : npm list --depth=0 
+hubstore@1.0.0 C:\Users\vinpe\HubStore
+├── @emnapi/core@1.10.0 extraneous
+├── @emnapi/runtime@1.10.0 extraneous
+├── @emnapi/wasi-threads@1.2.1 extraneous
+├── @napi-rs/wasm-runtime@1.1.4 extraneous
+├── @prisma/client@5.22.0
+├── @tailwindcss/cli@4.2.4
+├── @tailwindcss/postcss@4.2.4
+├── @tybys/wasm-util@0.10.2 extraneous
+├── @types/node@25.6.0
+├── @types/react-dom@19.2.3
+├── @types/react@19.2.14
+├── @vitejs/plugin-react@6.0.1
+├── autoprefixer@10.5.0
+├── bcryptjs@3.0.3
+├── concurrently@9.2.1
+├── cross-env@10.1.0
+├── electron-builder@26.8.1
+├── electron@41.5.0
+├── esbuild@0.28.0
+├── lucide-react@1.14.0
+├── nodemon@3.1.14
+├── npm-run-all@4.1.5
+├── postcss@8.5.14
+├── prisma@5.22.0
+├── react-dom@19.2.6
+├── react@19.2.6
+├── tailwindcss@4.2.4
+├── ts-node@10.9.2
+├── typescript@6.0.3
+├── vite@8.0.10
+├── wait-on@9.0.5
+└── zustand@5.0.13
 
 Ici, les informations sur les différentes techno qui constituent la stack.

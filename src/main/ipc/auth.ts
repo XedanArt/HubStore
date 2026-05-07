@@ -1,24 +1,17 @@
-import bcrypt from "bcryptjs"
-import { getPrisma } from "../database"
+import { ipcMain } from "electron"
+import { login } from "../auth.js"
 
-export async function login(username: string, password: string) {
-  const prisma = getPrisma()
+export function registerAuthHandlers() {
+  ipcMain.removeHandler("auth:login")
 
-  if (!prisma) throw new Error("Prisma non initialisé")
+  ipcMain.handle("auth:login", async (_, data) => {
+    const { username, password } = data
+    const user = await login(username, password)
 
-  const user = await prisma.user.findUnique({
-    where: { username }
+    if (!user) {
+      return { success: false, error: "Identifiants incorrects" }
+    }
+
+    return { success: true, data: user }
   })
-
-  if (!user) return null
-
-  const valid = await bcrypt.compare(password, user.password)
-
-  if (!valid) return null
-
-  return {
-    id: user.id,
-    username: user.username,
-    role: user.role
-  }
 }

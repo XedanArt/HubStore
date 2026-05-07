@@ -3,11 +3,11 @@ import esbuild from "esbuild";
 const ctx = await esbuild.context({
   entryPoints: ["src/preload/preload.ts"],
   outfile: "dist/preload.js",
-  bundle: true,         // ← preload peut être bundlé
+  bundle: true,
   platform: "node",
   format: "cjs",
   external: ["electron"],
-  sourcemap: true,
+  sourcemap: true
 });
 
 if (process.argv.includes("--watch")) {

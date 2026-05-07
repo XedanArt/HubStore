@@ -1,30 +1,12 @@
 import { ipcMain } from "electron"
-import { getPrisma } from "../database"
-import { login } from "./auth"
+import { getPrisma } from "../database.js"
 
 export function registerDbHandlers() {
 
   // ========================
-  // AUTH
-  // ========================
-  ipcMain.handle("auth:login", async (_event, { username, password }) => {
-    try {
-      const user = await login(username, password)
-
-      if (!user) {
-        return { success: false, error: "Identifiants incorrects" }
-      }
-
-      return { success: true, data: user }
-
-    } catch (error) {
-      return { success: false, error: String(error) }
-    }
-  })
-
-  // ========================
   // USERS
   // ========================
+  ipcMain.removeHandler("user:getAll")
   ipcMain.handle("user:getAll", async () => {
     try {
       const prisma = getPrisma()
@@ -44,6 +26,7 @@ export function registerDbHandlers() {
     }
   })
 
+  ipcMain.removeHandler("user:create")
   ipcMain.handle("user:create", async (_event, { username, password, role }) => {
     try {
       const prisma = getPrisma()
@@ -74,6 +57,7 @@ export function registerDbHandlers() {
     }
   })
 
+  ipcMain.removeHandler("user:delete")
   ipcMain.handle("user:delete", async (_event, id: number) => {
     try {
       const prisma = getPrisma()
@@ -113,6 +97,7 @@ export function registerDbHandlers() {
   // ========================
   // FRANCHISES
   // ========================
+  ipcMain.removeHandler("franchise:getAll")
   ipcMain.handle("franchise:getAll", async () => {
     try {
       const prisma = getPrisma()
@@ -128,6 +113,7 @@ export function registerDbHandlers() {
     }
   })
 
+  ipcMain.removeHandler("franchise:create")
   ipcMain.handle("franchise:create", async (_event, payload) => {
     try {
       const prisma = getPrisma()
@@ -146,6 +132,7 @@ export function registerDbHandlers() {
   // ========================
   // SITES
   // ========================
+  ipcMain.removeHandler("db:getSites")
   ipcMain.handle("db:getSites", async () => {
     const prisma = getPrisma()
 
@@ -154,6 +141,7 @@ export function registerDbHandlers() {
     })
   })
 
+  ipcMain.removeHandler("db:createSite")
   ipcMain.handle("db:createSite", async (_event, data) => {
     const prisma = getPrisma()
     return prisma.site.create({ data })
@@ -162,6 +150,7 @@ export function registerDbHandlers() {
   // ========================
   // INTERVENTIONS
   // ========================
+  ipcMain.removeHandler("db:getInterventions")
   ipcMain.handle("db:getInterventions", async () => {
     const prisma = getPrisma()
 
@@ -178,6 +167,7 @@ export function registerDbHandlers() {
     })
   })
 
+  ipcMain.removeHandler("db:createIntervention")
   ipcMain.handle("db:createIntervention", async (_event, data) => {
     try {
       const prisma = getPrisma()

@@ -4,25 +4,28 @@
     │   ├── ipc/
     │   │   ├── dbhandlers.js
     │   │   └── dbhandlers.js.map
+    │   ├── renderer/
     │   ├── main.js
-    │   ├── mains.js.map
     │   ├── preload.js
-    │   ├── preload.js.map
-    │   └── test.css
+    │   └── preload.js.map
     ├── docs
     ├── node_modules
     ├── prisma/
     │   ├── migrations/
     │   ├── dev.db
     │   └── schema.prisma
+    ├── release
     ├── scripts/
     │   ├── build-ipc.mjs
     │   ├── build-main.mjs
     │   ├── build-preload.mjs
-    │   └── build-renderer.mjs
+    │   ├── build-renderer.mjs
+    │   ├── createAdmin.mjs
+    │   └── seed.ts
     ├── src/
     │   ├── main/
     │   │   ├── ipc/
+    │   │   │   ├── auth.ts
     │   │   │   └── dbhandlers.ts
     │   │   ├── database.ts
     │   │   └── index.ts
@@ -41,7 +44,6 @@
     │   │   │   │   ├── MainView.tsx
     │   │   │   │   └── Sidebar.tsx
     │   │   │   ├── pages/
-    │   │   │   │   ├── Dashboard.tsx
     │   │   │   │   ├── Franchises.tsx
     │   │   │   │   ├── Interventions.tsx
     │   │   │   │   ├── Settings.tsx
@@ -51,9 +53,11 @@
     │   │   │   │   ├── intervention.service.ts
     │   │   │   │   └── site.service.ts
     │   │   │   ├── store/
+    │   │   │   │   ├── auth.store.ts
     │   │   │   │   ├── franchise.store.ts
     │   │   │   │   ├── intervention.store.ts
     │   │   │   │   ├── site.store.ts
+    │   │   │   │   ├── theme.store.ts
     │   │   │   │   └── ui.store.ts
     │   │   │   ├── types/
     │   │   │   │   ├── database.ts
@@ -61,12 +65,16 @@
     │   │   │   │   └── ipc.ts
     │   │   │   ├── utils/
     │   │   │   ├── views/
+    │   │   │   │   ├── auth/
+    │   │   │   │   │   └── LoginPage.tsx
     │   │   │   │   ├── create/
     │   │   │   │   │   ├── CreateCard.tsx
-    │   │   │   │   │   ├── CreateCityForm.tsx
     │   │   │   │   │   ├── CreateEntryPage.tsx
     │   │   │   │   │   ├── CreateFranchiseForm.tsx
-    │   │   │   │   │   └── CreateInterventionForm.tsx
+    │   │   │   │   │   ├── CreateInterventionForm.tsx
+    │   │   │   │   │   └── CreateSiteForm.tsx
+    │   │   │   │   ├── dashboard/
+    │   │   │   │   │   └── DashboardPage.tsx
     │   │   │   │   ├── home/
     │   │   │   │   │   └── HomePage.tsx
     │   │   │   │   ├── intervention/

@@ -19,11 +19,10 @@
     "build:preload": "node scripts/build-preload.mjs",
     "build:ipc": "node scripts/build-ipc.mjs",
 
-    "dist": "prisma generate && npm run build && electron-builder",
     "create-admin": "node scripts/createAdmin.mjs",
     "postinstall": "prisma generate"
-    
-  },
+}
+,
 
   "build": {
     "appId": "com.hubstore.app",

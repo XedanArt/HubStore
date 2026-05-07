@@ -1,2 +1,5 @@
-- Repassage en mode dev => changement des config. prod
+- Repassage en mode dev => suppression des config. prod
   - impossible de lancer l'appli en prod via le setup ou l'exe
+
+- Création d'un DotEnv à la racine pour fixer le chemin de la BDD
+  - modification du schema.prisma en conséquence (DATABASE_URL)
