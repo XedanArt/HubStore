@@ -9,6 +9,12 @@ import HomePage from "../views/home/HomePage"
 import SitePage from "../views/site/SitePage"
 import InterventionPage from "../views/intervention/InterventionPage"
 
+// pages Dashboard
+import UsersPage from "../views/dashboard/UsersPage"
+import ManagePage from "../views/dashboard/ManagePage"
+import InterventionsPage from "../views/dashboard/InterventionsPage"
+import LogsPage from "../views/dashboard/LogsPage"
+
 export default function MainView() {
   const { selectedFranchise, selectedSite } = useFranchiseStore()
   const activeView = useUIStore(s => s.activeView)
@@ -24,14 +30,104 @@ export default function MainView() {
     if (selectedSite) {
       loadInterventions()
     }
-  }, [selectedSite])
+  }, [selectedSite, loadInterventions])
 
   // Reset contexte quand on change de page
   useEffect(() => {
     if (activeView !== "home") {
       resetIntervention()
     }
-  }, [activeView])
+  }, [activeView, resetIntervention])
+
+  const renderView = () => {
+    switch (activeView) {
+
+      // =========================
+      // DASHBOARD
+      // =========================
+      case "dashboard":
+        return <DashboardPage />
+
+      // =========================
+      // CREATE
+      // =========================
+      case "create":
+        return <CreateEntryPage key={activeView} />
+
+      // =========================
+      // USERS
+      // =========================
+      case "users":
+        return <UsersPage />
+
+      // =========================
+      // MANAGE (Franchises & Sites)
+      // =========================
+      case "manage":
+        return <ManagePage />
+
+      // =========================
+      // INTERVENTIONS
+      // =========================
+      case "interventions":
+        return <InterventionsPage />
+
+      // =========================
+      // LOGS
+      // =========================
+      case "logs":
+        return <LogsPage />
+
+      // =========================
+      // HOME (logique complexe)
+      // =========================
+      case "home":
+        return (
+          <>
+            {selectedIntervention && (
+              <InterventionPage intervention={selectedIntervention} />
+            )}
+
+            {!selectedFranchise && !selectedIntervention && (
+              <HomePage />
+            )}
+
+            {selectedFranchise && !selectedSite && !selectedIntervention && (
+              <div
+                className="
+                  p-6 rounded-xl
+                  bg-surface-base
+                  border border-border-base
+                  backdrop-blur-xl
+                  [html.theme-dark_&]:backdrop-blur-none
+                "
+              >
+                <h1 className="text-2xl font-semibold mb-2">
+                  Franchise : {selectedFranchise.name}
+                </h1>
+
+                <p className="text-text-secondary">
+                  Sélectionnez un site dans la sidebar pour afficher les interventions.
+                </p>
+              </div>
+            )}
+
+            {selectedSite && !selectedIntervention && (
+              <SitePage
+                site={selectedSite}
+                franchise={selectedFranchise}
+              />
+            )}
+          </>
+        )
+
+      // =========================
+      // FALLBACK
+      // =========================
+      default:
+        return <DashboardPage />
+    }
+  }
 
   return (
     <main
@@ -42,82 +138,7 @@ export default function MainView() {
         overflow-y-auto
       "
     >
-      {/* =========================
-          CREATE
-      ========================= */}
-      {activeView === "create" && (
-        <CreateEntryPage key={activeView} />
-      )}
-
-      {/* =========================
-          MANAGE
-      ========================= */}
-      {activeView === "manage" && (
-        <div
-          className="
-            p-6 rounded-xl
-            bg-surface-base
-            border border-border-base
-            backdrop-blur-xl
-            [html.theme-dark_&]:backdrop-blur-none
-          "
-        >
-          <h1 className="text-2xl font-semibold mb-4">
-            Gérer les entrées
-          </h1>
-
-          <p className="text-text-secondary">
-            Gestion des franchises, sites et interventions.
-          </p>
-        </div>
-      )}
-
-      {/* =========================
-          DASHBOARD
-      ========================= */}
-      {activeView === "dashboard" && <DashboardPage />}
-
-      {/* =========================
-          HOME
-      ========================= */}
-      {activeView === "home" && (
-        <>
-          {selectedIntervention && (
-            <InterventionPage intervention={selectedIntervention} />
-          )}
-
-          {!selectedFranchise && !selectedIntervention && (
-            <HomePage />
-          )}
-
-          {selectedFranchise && !selectedSite && !selectedIntervention && (
-            <div
-              className="
-                p-6 rounded-xl
-                bg-surface-base
-                border border-border-base
-                backdrop-blur-xl
-                [html.theme-dark_&]:backdrop-blur-none
-              "
-            >
-              <h1 className="text-2xl font-semibold mb-2">
-                Franchise : {selectedFranchise.name}
-              </h1>
-
-              <p className="text-text-secondary">
-                Sélectionnez un site dans la sidebar pour afficher les interventions.
-              </p>
-            </div>
-          )}
-
-          {selectedSite && !selectedIntervention && (
-            <SitePage
-              site={selectedSite}
-              franchise={selectedFranchise}
-            />
-          )}
-        </>
-      )}
+      {renderView()}
     </main>
   )
 }

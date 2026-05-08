@@ -5,6 +5,10 @@ export type View =
   | "create"
   | "manage"
   | "dashboard"
+  | "users"
+  | "manage"
+  | "interventions"
+  | "logs"
 
 interface UIState {
   activeView: View
