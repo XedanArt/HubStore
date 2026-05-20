@@ -35,6 +35,10 @@ const databaseApi = {
 
   createIntervention: (data: any): Promise<any> =>
     ipcRenderer.invoke("db:createIntervention", data),
+
+  // mise à jour d'une intervention
+  updateIntervention: (id: number, data: any): Promise<any> =>
+    ipcRenderer.invoke("db:updateIntervention", { id, data }),
 }
 
 // ========================

@@ -61,7 +61,8 @@ export default function HomePage() {
             </div>
 
             {/* Description */}
-            <p className="text-text-secondary text-sm">
+            {/* Ajout du plugin line-clamp pour limiter le nombre de caractères affichés */}
+            <p className="text-text-secondary text-sm line-clamp-2">
               {inter.description || "Aucune description"}
             </p>
 

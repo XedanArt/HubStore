@@ -40,7 +40,7 @@ function createWindow() {
 }
 
 app.whenReady().then(async () => {
-  await initDatabase()        // ← INDISPENSABLE
+  await initDatabase()        // CRITIQUE : L'initialisation de la base de données doit se faire avant d'enregistrer les handlers, sinon les handlers pourraient essayer d'accéder à la base de données avant qu'elle ne soit prête.
   registerDbHandlers()
   registerAuthHandlers()
   createWindow()

@@ -8,45 +8,31 @@ export default function LoginPage() {
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
 
-  const handleLogin = async () => {
+  const handleLogin = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault()
     setError("")
+
+    if (!username || !password) {
+      setError("Veuillez remplir tous les champs")
+      return
+    }
 
     const success = await login(username, password)
 
     if (!success) {
       setError("Identifiants incorrects")
     }
-    if (!username || !password) {
-      setError("Veuillez remplir tous les champs")
-    return
-    }
   }
 
   return (
-    <div
-      className="
-        h-screen flex items-center justify-center
-        bg-bg-primary text-text-primary
-      "
-    >
-      <div
-        className="
-          w-full max-w-md p-6 rounded-xl
+    <div className="h-screen flex items-center justify-center bg-bg-primary text-text-primary">
+      <div className="w-full max-w-md p-6 rounded-xl bg-surface-base border border-border-base shadow-sm backdrop-blur-xl [html.theme-dark_&]:backdrop-blur-none">
 
-          bg-surface-base
-          border border-border-base
+        <h1 className="text-2xl font-semibold mb-4">Connexion</h1>
 
-          shadow-sm
+        {/* form pour trigger la touche "Entrée" */}
+        <form onSubmit={handleLogin} className="space-y-4">
 
-          backdrop-blur-xl
-          [html.theme-dark_&]:backdrop-blur-none
-        "
-      >
-        <h1 className="text-2xl font-semibold mb-4">
-          Connexion
-        </h1>
-
-        <div className="space-y-4">
           <input
             className="input"
             placeholder="Nom d'utilisateur"
@@ -63,20 +49,16 @@ export default function LoginPage() {
           />
 
           {error && (
-            <p className="text-accent-danger text-sm">
-              {error}
-            </p>
+            <p className="text-accent-danger text-sm">{error}</p>
           )}
-        </div>
 
-        <div className="mt-6 flex justify-end">
-          <button
-            onClick={handleLogin}
-            className="btn-primary"
-          >
-            Se connecter
-          </button>
-        </div>
+          <div className="mt-6 flex justify-end">
+            <button type="submit" className="btn-primary">
+              Se connecter
+            </button>
+          </div>
+
+        </form>
       </div>
     </div>
   )

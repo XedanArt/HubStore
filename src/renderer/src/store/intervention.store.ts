@@ -8,17 +8,20 @@ export const useInterventionStore = create((set, get) => ({
   searchQuery: "",
   searchResults: [],
 
+  // Charger toutes les interventions
   loadInterventions: async () => {
     const data = await InterventionService.getAll()
     set({ interventions: data || [] })
   },
 
+  // Sélectionner une intervention
   selectIntervention: (intervention) =>
     set({ selectedIntervention: intervention, searchQuery: "", searchResults: [] }),
 
   resetIntervention: () =>
     set({ selectedIntervention: null }),
 
+  // Recherche
   setSearchQuery: (query) => {
     set({ searchQuery: query })
 
@@ -37,5 +40,41 @@ export const useInterventionStore = create((set, get) => ({
     )
 
     set({ searchResults: results })
+  },
+
+  // Mettre à jour une intervention (ex: description)
+  updateIntervention: async (id, data) => {
+    // Mise à jour optimiste dans le store
+    set({
+      interventions: get().interventions.map(inter =>
+        inter.id === id ? { ...inter, ...data } : inter
+      ),
+      selectedIntervention:
+        get().selectedIntervention?.id === id
+          ? { ...get().selectedIntervention, ...data }
+          : get().selectedIntervention
+    })
+
+    // Mise à jour en base
+    await InterventionService.update(id, data)
+  },
+
+  // Marquer comme résolue
+  resolveIntervention: async (id) => {
+    const resolvedAt = new Date()
+
+    // Mise à jour optimiste
+    set({
+      interventions: get().interventions.map(inter =>
+        inter.id === id ? { ...inter, resolvedAt } : inter
+      ),
+      selectedIntervention:
+        get().selectedIntervention?.id === id
+          ? { ...get().selectedIntervention, resolvedAt }
+          : get().selectedIntervention
+    })
+
+    // Mise à jour en base
+    await InterventionService.update(id, { resolvedAt })
   }
 }))

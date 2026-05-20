@@ -8,5 +8,8 @@ export const InterventionService = {
     date: string
     resolvedAt?: string | null
     createdById?: number
-  }) => window.api.db.createIntervention(data)
+  }) => window.api.db.createIntervention(data),
+
+  update: (id: number, data: any) =>
+    window.api.db.updateIntervention(id, data)
 }

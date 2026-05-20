@@ -78,7 +78,7 @@ export default function SitePage({ site, franchise }) {
               </h3>
 
               {/* Description */}
-              <p className="text-text-secondary text-sm">
+              <p className="text-text-secondary text-sm line-clamp-2">
                 {inter.description || "—"}
               </p>
 
@@ -89,16 +89,33 @@ export default function SitePage({ site, franchise }) {
               </p>
 
               {/* Statut */}
-              {inter.resolvedAt ? (
-                <p className="text-accent-success text-xs mt-1">
-                  Résolue le :{" "}
-                  {new Date(inter.resolvedAt).toLocaleDateString("fr-FR")}
-                </p>
-              ) : (
-                <p className="text-accent-warning text-xs mt-1">
-                  En cours
-                </p>
-              )}
+              <div className="mt-2">
+                {inter.resolvedAt ? (
+                  <span
+                    className="
+                      inline-block px-2 py-1 text-xs font-medium
+                      rounded-md
+                      bg-green-500/15 text-green-400
+                      border border-green-500/20
+                      backdrop-blur-sm
+                    "
+                  >
+                    Résolue
+                  </span>
+                ) : (
+                  <span
+                    className="
+                      inline-block px-2 py-1 text-xs font-medium
+                      rounded-md
+                      bg-yellow-500/15 text-yellow-400
+                      border border-yellow-500/20
+                      backdrop-blur-sm
+                    "
+                  >
+                    En cours
+                  </span>
+                )}
+              </div>
             </div>
           ))}
         </div>

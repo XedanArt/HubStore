@@ -1,0 +1,1 @@
+- Changement de la page de connexion, bouton connexion permet l'utilisation de la touche entrée pour plus de facilité de connexion => auth/LoginPage.tsx

@@ -74,7 +74,11 @@
     │   │   │   │   │   ├── CreateInterventionForm.tsx
     │   │   │   │   │   └── CreateSiteForm.tsx
     │   │   │   │   ├── dashboard/
-    │   │   │   │   │   └── DashboardPage.tsx
+    │   │   │   │   │   ├── DashboardPage.tsx
+    │   │   │   │   │   ├── InterventionsPage.tsx
+    │   │   │   │   │   ├── LogsPage.txt
+    │   │   │   │   │   ├── ManagePage.tsx
+    │   │   │   │   │   └── UsersPage.tsx
     │   │   │   │   ├── home/
     │   │   │   │   │   └── HomePage.tsx
     │   │   │   │   ├── intervention/

@@ -218,4 +218,25 @@ export function registerDbHandlers() {
       throw error
     }
   })
+
+  // =====================
+  // UPDATE INTERVENTION 
+  // =====================
+  ipcMain.removeHandler("db:updateIntervention")
+  ipcMain.handle("db:updateIntervention", async (_event, { id, data }) => {
+    try {
+      const prisma = getPrisma()
+
+      const updated = await prisma.intervention.update({
+        where: { id },
+        data
+      })
+
+      return updated
+
+    } catch (error) {
+      console.error("UPDATE INTERVENTION ERROR:", error)
+      throw error
+    }
+  })
 }
