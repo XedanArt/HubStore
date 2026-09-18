@@ -10,7 +10,18 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "noEmit": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+
+    "ignoreDeprecations": "6.0",
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/renderer/*"]
+    }
   },
-  "include": ["src"]
+  "include": [
+    "src",
+    "src/renderer/global.d.ts"
+  ]
 }
+

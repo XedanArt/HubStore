@@ -1,4 +1,6 @@
-////////// STACK DU PROJET //////////
+npm run dev
+npx prisma studio
+
 Electron : npx electron --version ---> v41.5.0
 Vite : npm list vite ---> vite@8.0.10
 React : npm list react react-dom ---> react@19.2.6
@@ -44,5 +46,3 @@ hubstore@1.0.0 C:\Users\vinpe\HubStore
 ├── vite@8.0.10
 ├── wait-on@9.0.5
 └── zustand@5.0.13
-
-Ici, les informations sur les différentes techno qui constituent la stack.

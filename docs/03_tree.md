@@ -2,10 +2,13 @@
 └── HubStore/
     ├── dist/
     │   ├── ipc/
+    │   │   ├── auth.js
+    │   │   ├── auth.js.map
     │   │   ├── dbhandlers.js
     │   │   └── dbhandlers.js.map
     │   ├── renderer/
     │   ├── main.js
+    │   ├── main.js.map
     │   ├── preload.js
     │   └── preload.js.map
     ├── docs
@@ -26,7 +29,9 @@
     │   ├── main/
     │   │   ├── ipc/
     │   │   │   ├── auth.ts
+    │   │   │   ├── franchise.ts
     │   │   │   └── dbhandlers.ts
+    │   │   ├── auth.ts
     │   │   ├── database.ts
     │   │   └── index.ts
     │   ├── preload/

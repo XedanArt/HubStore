@@ -1,42 +1,55 @@
 import { ipcMain } from "electron"
 import { getPrisma } from "../database.js"
 
+type IpcResponse<T> = {
+  success: boolean
+  data?: T
+  error?: string
+}
+
+function ok<T>(data: T): IpcResponse<T> {
+  return { success: true, data }
+}
+
+function fail(error: unknown): IpcResponse<never> {
+  return { success: false, error: String(error) }
+}
+
 export function registerDbHandlers() {
+  const prisma = getPrisma()
 
   // ========================
   // USERS
   // ========================
-  ipcMain.removeHandler("user:getAll")
   ipcMain.handle("user:getAll", async () => {
     try {
-      const prisma = getPrisma()
-
       const users = await prisma.user.findMany({
         select: {
           id: true,
           username: true,
-          role: true
-        }
+          role: true,
+        },
       })
-
-      return { success: true, data: users }
-
+      return ok(users)
     } catch (error) {
-      return { success: false, error: String(error) }
+      return fail(error)
     }
   })
 
-  ipcMain.removeHandler("user:create")
-  ipcMain.handle("user:create", async (_event, { username, password, role }) => {
+  ipcMain.handle("user:create", async (_event, payload) => {
     try {
-      const prisma = getPrisma()
+      const { username, password, role } = payload as {
+        username: string
+        password: string
+        role: "ADMIN" | "USER"
+      }
 
       const existing = await prisma.user.findUnique({
-        where: { username }
+        where: { username },
       })
 
       if (existing) {
-        return { success: false, error: "Utilisateur déjà existant" }
+        return fail("Utilisateur déjà existant")
       }
 
       const bcrypt = await import("bcryptjs")
@@ -46,160 +59,148 @@ export function registerDbHandlers() {
         data: {
           username,
           password: hashedPassword,
-          role
-        }
+          role,
+        },
       })
 
-      return { success: true, data: user }
-
+      return ok(user)
     } catch (error) {
-      return { success: false, error: String(error) }
+      return fail(error)
     }
   })
 
-  ipcMain.removeHandler("user:delete")
   ipcMain.handle("user:delete", async (_event, id: number) => {
     try {
-      const prisma = getPrisma()
-
       const user = await prisma.user.findUnique({
-        where: { id }
+        where: { id },
       })
 
       if (!user) {
-        return { success: false, error: "Utilisateur introuvable" }
+        return fail("Utilisateur introuvable")
       }
 
       if (user.role === "ADMIN") {
         const adminCount = await prisma.user.count({
-          where: { role: "ADMIN" }
+          where: { role: "ADMIN" },
         })
 
         if (adminCount <= 1) {
-          return {
-            success: false,
-            error: "Impossible de supprimer le dernier admin"
-          }
+          return fail("Impossible de supprimer le dernier admin")
         }
       }
 
       await prisma.user.delete({
-        where: { id }
+        where: { id },
       })
 
-      return { success: true }
-
+      return ok<void>(undefined)
     } catch (error) {
-      return { success: false, error: String(error) }
+      return fail(error)
     }
   })
 
   // ========================
   // FRANCHISES
   // ========================
-  ipcMain.removeHandler("franchise:getAll")
   ipcMain.handle("franchise:getAll", async () => {
     try {
-      const prisma = getPrisma()
-
       const data = await prisma.franchise.findMany({
-        include: { sites: true }
+        include: { sites: true },
       })
-
-      return { success: true, data }
-
+      return ok(data)
     } catch (error) {
-      return { success: false, error: String(error) }
+      return fail(error)
     }
   })
 
-  ipcMain.removeHandler("franchise:create")
   ipcMain.handle("franchise:create", async (_event, payload) => {
     try {
-      const prisma = getPrisma()
-
       const data = await prisma.franchise.create({
-        data: payload
+        data: payload,
       })
-
-      return { success: true, data }
-
+      return ok(data)
     } catch (error) {
-      return { success: false, error: String(error) }
+      return fail(error)
     }
   })
 
   // ========================
   // SITES
   // ========================
-  ipcMain.removeHandler("db:getSites")
-  ipcMain.handle("db:getSites", async () => {
-    const prisma = getPrisma()
-
-    return prisma.site.findMany({
-      include: { franchise: true }
-    })
+  ipcMain.handle("site:getAll", async () => {
+    try {
+      const sites = await prisma.site.findMany({
+        include: { franchise: true },
+      })
+      return ok(sites)
+    } catch (error) {
+      return fail(error)
+    }
   })
 
-  ipcMain.removeHandler("db:createSite")
-  ipcMain.handle("db:createSite", async (_event, data) => {
-    const prisma = getPrisma()
-    return prisma.site.create({ data })
+  ipcMain.handle("site:create", async (_event, data) => {
+    try {
+      const site = await prisma.site.create({ data })
+      return ok(site)
+    } catch (error) {
+      return fail(error)
+    }
   })
 
   // ========================
   // INTERVENTIONS
   // ========================
-  ipcMain.removeHandler("db:getInterventions")
-  ipcMain.handle("db:getInterventions", async () => {
-    const prisma = getPrisma()
-
-    return prisma.intervention.findMany({
-      include: {
-        site: {
-          include: { franchise: true }
+  ipcMain.handle("intervention:getAll", async () => {
+    try {
+      const interventions = await prisma.intervention.findMany({
+        include: {
+          site: {
+            include: { franchise: true },
+          },
+          createdBy: true,
         },
-        createdBy: true
-      },
-      orderBy: {
-        date: "desc"
-      }
-    })
+        orderBy: {
+          date: "desc",
+        },
+      })
+      return ok(interventions)
+    } catch (error) {
+      return fail(error)
+    }
   })
 
-  ipcMain.removeHandler("db:createIntervention")
-  ipcMain.handle("db:createIntervention", async (_event, data) => {
+  ipcMain.handle("intervention:create", async (_event, data) => {
     try {
-      const prisma = getPrisma()
-
-      const { siteId, createdById } = data
+      const { siteId, createdById } = data as {
+        siteId: number
+        createdById?: number | null
+      }
 
       if (!siteId) {
-        throw new Error("Site manquant")
+        return fail("Site manquant")
       }
 
       const site = await prisma.site.findUnique({
         where: { id: siteId },
-        include: { franchise: true }
+        include: { franchise: true },
       })
 
       if (!site) {
-        throw new Error("Site introuvable")
+        return fail("Site introuvable")
       }
 
       const last = await prisma.intervention.findFirst({
         where: {
           site: {
-            franchiseId: site.franchiseId
-          }
+            franchiseId: site.franchiseId,
+          },
         },
         orderBy: {
-          ticketNumber: "desc"
-        }
+          ticketNumber: "desc",
+        },
       })
 
       const nextNumber = last ? last.ticketNumber + 1 : 1
-
       const ticketCode = `${site.franchise.code}${String(nextNumber).padStart(5, "0")}`
 
       const intervention = await prisma.intervention.create({
@@ -207,36 +208,30 @@ export function registerDbHandlers() {
           ...data,
           createdById: createdById ?? null,
           ticketNumber: nextNumber,
-          ticketCode
-        }
+          ticketCode,
+        },
       })
 
-      return intervention
-
+      return ok(intervention)
     } catch (error) {
       console.error("CREATE INTERVENTION ERROR:", error)
-      throw error
+      return fail(error)
     }
   })
 
-  // =====================
-  // UPDATE INTERVENTION 
-  // =====================
-  ipcMain.removeHandler("db:updateIntervention")
-  ipcMain.handle("db:updateIntervention", async (_event, { id, data }) => {
+  ipcMain.handle("intervention:update", async (_event, payload) => {
     try {
-      const prisma = getPrisma()
+      const { id, data } = payload as { id: number; data: any }
 
       const updated = await prisma.intervention.update({
         where: { id },
-        data
+        data,
       })
 
-      return updated
-
+      return ok(updated)
     } catch (error) {
       console.error("UPDATE INTERVENTION ERROR:", error)
-      throw error
+      return fail(error)
     }
   })
 }

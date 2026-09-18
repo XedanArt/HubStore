@@ -6,22 +6,27 @@
   "type": "module",
 
   "scripts": {
-    "dev": "npm-run-all -p watch:main watch:ipc dev:preload dev:renderer dev:electron",
-    "watch:main": "node scripts/build-main.mjs --watch",
-    "watch:ipc": "node scripts/build-ipc.mjs --watch",
-    "dev:preload": "node scripts/build-preload.mjs --watch",
-    "dev:renderer": "vite --config src/renderer/vite.config.ts",
-    "dev:electron": "wait-on tcp:5173 && cross-env VITE_DEV_SERVER_URL=http://localhost:5173 electron dist/main.js",
+  "dev": "npm-run-all dev:renderer:build -p watch:main watch:ipc dev:preload dev:electron",
+  "watch": "npm-run-all -p watch:main watch:ipc dev:preload dev:renderer",
 
-    "build": "npm run build:renderer && npm run build:main && npm run build:preload && npm run build:ipc",
-    "build:renderer": "vite build --config src/renderer/vite.config.ts",
-    "build:main": "node scripts/build-main.mjs",
-    "build:preload": "node scripts/build-preload.mjs",
-    "build:ipc": "node scripts/build-ipc.mjs",
+  "watch:main": "node scripts/build-main.mjs --watch",
+  "watch:ipc": "node scripts/build-ipc.mjs --watch",
+  "dev:preload": "node scripts/build-preload.mjs --watch",
+  "dev:renderer": "vite --config src/renderer/vite.config.ts",
+  "dev:renderer:build": "vite build --config src/renderer/vite.config.ts",
 
-    "create-admin": "node scripts/createAdmin.mjs",
-    "postinstall": "prisma generate"
+  "dev:electron": "wait-on dist/main.js && electron dist/main.js",
+
+  "build": "npm run build:renderer && npm run build:main && npm run build:preload && npm run build:ipc",
+  "build:renderer": "vite build --config src/renderer/vite.config.ts",
+  "build:main": "node scripts/build-main.mjs",
+  "build:preload": "node scripts/build-preload.mjs",
+  "build:ipc": "node scripts/build-ipc.mjs",
+
+  "create-admin": "node scripts/createAdmin.mjs",
+  "postinstall": "prisma generate"
 }
+
 ,
 
   "build": {

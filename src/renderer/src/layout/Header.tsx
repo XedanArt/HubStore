@@ -1,5 +1,6 @@
 import { useUIStore } from "../store/ui.store"
 import { useFranchiseStore } from "../store/franchise.store"
+import { useSiteStore } from "../store/site.store"
 import { useInterventionStore } from "../store/intervention.store"
 import { useThemeStore } from "../store/theme.store"
 
@@ -13,6 +14,8 @@ export default function Header() {
   const resetSelection = useFranchiseStore(state => state.resetSelection)
   const loadFranchises = useFranchiseStore(state => state.loadFranchises)
 
+  const loadSites = useSiteStore(state => state.loadSites)
+  
   const resetIntervention = useInterventionStore(state => state.resetIntervention)
   const loadInterventions = useInterventionStore(state => state.loadInterventions)
 
@@ -23,8 +26,12 @@ export default function Header() {
   const refreshAll = async () => {
     await Promise.all([
       loadFranchises(),
+      loadSites(),
       loadInterventions(),
     ])
+
+      resetSelection(),
+      resetIntervention()  
   }
 
   return (

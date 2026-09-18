@@ -1,6 +1,6 @@
 export const FranchiseService = {
   async getAll() {
-    const res = await window.api.db.getFranchises()
+    const res = await window.hubstore.db.getFranchises()
 
     if (!res.success) {
       throw new Error(res.error || "Erreur lors du fetch des franchises")
@@ -10,7 +10,7 @@ export const FranchiseService = {
   },
 
   async create(data: { name: string }) {
-    const res = await window.api.db.createFranchise(data)
+    const res = await window.hubstore.db.createFranchise(data)
 
     if (!res.success) {
       throw new Error(res.error || "Erreur lors de la création")
@@ -19,4 +19,3 @@ export const FranchiseService = {
     return res.data
   },
 }
-

@@ -8,10 +8,14 @@ const ctx = await esbuild.context({
   format: "esm",
   target: "node20",
   external: ["electron", "@prisma/client", "bcryptjs"],
-  sourcemap: true
+  sourcemap: true,
+  banner: {
+    js: `import { createRequire } from 'module'; const require = createRequire(import.meta.url);`
+  }
 });
 
 if (process.argv.includes("--watch")) {
+  await ctx.rebuild(); 
   await ctx.watch();
   console.log("[main] watching…");
 } else {

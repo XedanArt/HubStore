@@ -1,5 +1,5 @@
 export const InterventionService = {
-  getAll: () => window.api.db.getInterventions(),
+  getAll: () => window.hubstore.db.getInterventions(),
 
   create: (data: {
     title: string
@@ -8,8 +8,8 @@ export const InterventionService = {
     date: string
     resolvedAt?: string | null
     createdById?: number
-  }) => window.api.db.createIntervention(data),
+  }) => window.hubstore.db.createIntervention(data),
 
   update: (id: number, data: any) =>
-    window.api.db.updateIntervention(id, data)
+    window.hubstore.db.updateIntervention(id, data)
 }

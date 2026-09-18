@@ -1,88 +1,85 @@
 import { contextBridge, ipcRenderer } from "electron"
 
-// ========================
-// TYPES
-// ========================
 export type IpcResponse<T> = {
   success: boolean
   data?: T
   error?: string
 }
 
+function safeInvoke<T = unknown>(channel: string, payload?: unknown): Promise<IpcResponse<T>> {
+  return ipcRenderer.invoke(channel, payload)
+}
+
 // ========================
 // DATABASE API
 // ========================
-const databaseApi = {
-  getFranchises: (): Promise<IpcResponse<any[]>> =>
-    ipcRenderer.invoke("franchise:getAll"),
+const dbApi = {
+  getFranchises: () =>
+    safeInvoke<any[]>("franchise:getAll"),
 
-  createFranchise: (data: { name: string }): Promise<IpcResponse<any>> =>
-    ipcRenderer.invoke("franchise:create", data),
+  createFranchise: (data: { name: string }) =>
+    safeInvoke<any>("franchise:create", data),
 
-  getSites: (): Promise<any[]> =>
-    ipcRenderer.invoke("db:getSites"),
+  getSites: () =>
+    safeInvoke<any[]>("site:getAll"),
 
   createSite: (data: {
     name: string
     franchiseId: number
     phone?: string | null
     description?: string | null
-  }): Promise<any> =>
-    ipcRenderer.invoke("db:createSite", data),
+  }) =>
+    safeInvoke<any>("site:create", data),
 
-  getInterventions: (): Promise<any[]> =>
-    ipcRenderer.invoke("db:getInterventions"),
+  getInterventions: () =>
+    safeInvoke<any[]>("intervention:getAll"),
 
-  createIntervention: (data: any): Promise<any> =>
-    ipcRenderer.invoke("db:createIntervention", data),
+  createIntervention: (data: any) =>
+    safeInvoke<any>("intervention:create", data),
 
-  // mise à jour d'une intervention
-  updateIntervention: (id: number, data: any): Promise<any> =>
-    ipcRenderer.invoke("db:updateIntervention", { id, data }),
+  updateIntervention: (id: number, data: any) =>
+    safeInvoke<any>("intervention:update", { id, data }),
 }
 
 // ========================
 // AUTH API
 // ========================
 const authApi = {
-  login: (data: { username: string; password: string }): Promise<IpcResponse<any>> =>
-    ipcRenderer.invoke("auth:login", data),
+  login: (data: { username: string; password: string }) =>
+    safeInvoke<any>("auth:login", data),
 }
 
 // ========================
 // USERS API
 // ========================
 const userApi = {
-  getUsers: (): Promise<IpcResponse<any[]>> =>
-    ipcRenderer.invoke("user:getAll"),
+  getUsers: () =>
+    safeInvoke<any[]>("user:getAll"),
 
   createUser: (data: {
     username: string
     password: string
     role: "ADMIN" | "USER"
-  }): Promise<IpcResponse<any>> =>
-    ipcRenderer.invoke("user:create", data),
+  }) =>
+    safeInvoke<any>("user:create", data),
 
-  deleteUser: (id: number): Promise<IpcResponse<void>> =>
-    ipcRenderer.invoke("user:delete", id),
+  deleteUser: (id: number) =>
+    safeInvoke<void>("user:delete", id),
 }
 
 // ========================
 // EXPOSE API
 // ========================
-contextBridge.exposeInMainWorld("api", {
-  db: databaseApi,
+contextBridge.exposeInMainWorld("hubstore", {
+  db: dbApi,
   auth: authApi,
   user: userApi,
 })
 
-// ========================
-// GLOBAL TYPES
-// ========================
 declare global {
   interface Window {
-    api: {
-      db: typeof databaseApi
+    hubstore: {
+      db: typeof dbApi
       auth: typeof authApi
       user: typeof userApi
     }

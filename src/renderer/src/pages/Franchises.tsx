@@ -1,5 +1,6 @@
 import { useEffect } from "react"
-import { useFranchiseStore } from "@/store/franchise.store"
+import { useFranchiseStore } from "../../store/franchise.store"
+import type { Franchise } from "../../store/franchise.store"
 
 export default function Franchises() {
   const { franchises, loadFranchises, createFranchise } = useFranchiseStore()
@@ -13,14 +14,14 @@ export default function Franchises() {
       <h2 className="text-xl mb-4">Franchises</h2>
 
       <button
-        onClick={() => createFranchise({ name: "Nouvelle franchise" })}
+        onClick={() => createFranchise({ name: "Nouvelle franchise", code: "NEW" })}
         className="mb-4 px-4 py-2 bg-blue-500 text-white rounded"
       >
         Ajouter
       </button>
 
       <div className="space-y-2">
-        {franchises.map((f) => (
+        {franchises.map((f: Franchise) => (
           <div key={f.id} className="p-3 bg-gray-100 rounded">
             {f.name}
           </div>
@@ -29,3 +30,4 @@ export default function Franchises() {
     </div>
   )
 }
+

@@ -17,13 +17,29 @@ export const useSiteStore = create<SiteState>((set) => ({
   sites: [],
 
   loadSites: async () => {
-    const data = await SiteService.getAll()
-    set({ sites: data || [] })
+    const res = await SiteService.getAll()
+
+    const list =
+      Array.isArray(res)
+        ? res
+        : Array.isArray(res?.data)
+          ? res.data
+          : []
+
+    set({ sites: list })
   },
 
   createSite: async (payload) => {
     await SiteService.create(payload)
-    const data = await SiteService.getAll()
-    set({ sites: data || [] })
+    const res = await SiteService.getAll()
+
+    const list =
+      Array.isArray(res)
+        ? res
+        : Array.isArray(res?.data)
+          ? res.data
+          : []
+
+    set({ sites: list })
   },
 }))

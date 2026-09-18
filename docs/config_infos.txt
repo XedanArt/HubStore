@@ -1,1 +1,0 @@
-Informations sur les différents fichiers de configuration du projet.

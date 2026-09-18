@@ -1,15 +1,28 @@
 import { create } from "zustand"
 
-export const useAuthStore = create((set, get) => ({
+type User = {
+  id: number
+  username: string
+  role: "ADMIN" | "USER"
+}
+
+type AuthState = {
+  user: User | null
+  login: (username: string, password: string) => Promise<boolean>
+  logout: () => void
+  isAdmin: () => boolean
+}
+
+export const useAuthStore = create<AuthState>((set, get) => ({
   user: null,
 
-  login: async (username, password) => {
-    const res = await window.api.auth.login({
+  login: async (username: string, password: string) => {
+    const res = await window.hubstore.auth.login({
       username,
       password
     })
 
-    if (res.success) {
+    if (res.success && res.data) {
       set({ user: res.data })
       return true
     }
@@ -19,5 +32,8 @@ export const useAuthStore = create((set, get) => ({
 
   logout: () => set({ user: null }),
 
-  isAdmin: () => get().user?.role === "ADMIN"
+  isAdmin: () => {
+    const user = get().user
+    return user?.role === "ADMIN"
+  }
 }))
